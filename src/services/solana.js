@@ -12,7 +12,9 @@ const getWallet = (secretKey) => {
 };
 
 const getBalance = async (walletAddress) => {
+  
   const publicKey = new PublicKey(walletAddress);
+  console.log("publicKey-------->", publicKey)
   const res = await connection.getBalance(publicKey);
   return (1.0 * res) / LAMPORTS_PER_SOL;
 };
