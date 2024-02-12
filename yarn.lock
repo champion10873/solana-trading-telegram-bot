@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@babel/runtime@^7.10.5", "@babel/runtime@^7.17.2", "@babel/runtime@^7.23.2":
-  version "7.23.6"
-  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.6.tgz"
-  integrity sha512-zHd0eUrf5GZoOWVCXp6koAKQTfZV07eit6bGPmJgnZdnSAvvZee6zniW2XMF7Cmc4ISOOnPy3QaSiIJGJkVEDQ==
+"@babel/runtime@^7.10.5", "@babel/runtime@^7.17.2", "@babel/runtime@^7.23.4":
+  version "7.23.9"
+  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.9.tgz"
+  integrity sha512-0CX6F+BI2s9dkUqr08KFrAIZgNFj75rdBU/DjCyYLIaV/quFjkk6T+EJ2LkZHyZTbEV4L5p97mNkUsHl2wLFAw==
   dependencies:
     regenerator-runtime "^0.14.0"
 
@@ -621,130 +621,130 @@
     bn.js "^5.2.0"
     debug "^4.3.4"
 
-"@moralisweb3/api-utils@^2.23.2":
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/@moralisweb3/api-utils/-/api-utils-2.23.2.tgz"
-  integrity sha512-WbB6spEN5bfYssRvwlC/yYw9mtgkggSScupCgS3oLZBSmxhpN74AdnGD8qMvyVDgmH7oo3Jb/RCTUk7lntG69Q==
+"@moralisweb3/api-utils@^2.24.2":
+  version "2.24.2"
+  resolved "https://registry.npmjs.org/@moralisweb3/api-utils/-/api-utils-2.24.2.tgz"
+  integrity sha512-PzUfwVKNPetYFeaEGzmHYvEEZRuH4LLXKUYIPxR9ODk8uyH2QQ2e6CoSM8nDEo21W0KWWgtxe3e4C8SezlRCPg==
   dependencies:
-    "@moralisweb3/common-core" "^2.23.2"
-    "@moralisweb3/common-evm-utils" "^2.23.2"
+    "@moralisweb3/common-core" "^2.24.2"
+    "@moralisweb3/common-evm-utils" "^2.24.2"
     axios "^1.2.1"
 
-"@moralisweb3/aptos-api@^2.23.2":
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/@moralisweb3/aptos-api/-/aptos-api-2.23.2.tgz"
-  integrity sha512-ySsyxS95BOOSZb9ENusfeFsica+fCbkq7Wjl74fAGYDGxM7mA1DgmeNAnmhaceB3HY529P/pRYyR0KxbVfyKmQ==
+"@moralisweb3/aptos-api@^2.24.2":
+  version "2.24.2"
+  resolved "https://registry.npmjs.org/@moralisweb3/aptos-api/-/aptos-api-2.24.2.tgz"
+  integrity sha512-Uh3vWT9LTS0VSjIyNRYih1PZX8A2JKEciUhpHzeImnkHVltlk7o6Do/BeHpJxHfKW/LTnv7LmaAzVrktgk8TSw==
   dependencies:
-    "@moralisweb3/api-utils" "^2.23.2"
-    "@moralisweb3/common-aptos-utils" "^2.23.2"
-    "@moralisweb3/common-core" "^2.23.2"
+    "@moralisweb3/api-utils" "^2.24.2"
+    "@moralisweb3/common-aptos-utils" "^2.24.2"
+    "@moralisweb3/common-core" "^2.24.2"
 
-"@moralisweb3/auth@^2.23.2":
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/@moralisweb3/auth/-/auth-2.23.2.tgz"
-  integrity sha512-7Nax/ZARco49Ny7/ckXOW+oICv+cz1V4Sdj8Lb8cJnjOj40hBV6eD/wLH4h05d2tP8HmmA8ouJbQ5yR+BhlHrg==
+"@moralisweb3/auth@^2.24.2":
+  version "2.24.2"
+  resolved "https://registry.npmjs.org/@moralisweb3/auth/-/auth-2.24.2.tgz"
+  integrity sha512-4/QXUEGHpDdMJFvr8BKyCIwmlEJ9Wy6GJYLEvSB7lmNz017fd0YqYe8SUVttyCneVYtP4YRWZ0Yb6yGxFaPnOQ==
   dependencies:
-    "@moralisweb3/api-utils" "^2.23.2"
-    "@moralisweb3/common-aptos-utils" "^2.23.2"
-    "@moralisweb3/common-auth-utils" "^2.23.2"
-    "@moralisweb3/common-core" "^2.23.2"
-    "@moralisweb3/common-evm-utils" "^2.23.2"
-    "@moralisweb3/common-sol-utils" "^2.23.2"
+    "@moralisweb3/api-utils" "^2.24.2"
+    "@moralisweb3/common-aptos-utils" "^2.24.2"
+    "@moralisweb3/common-auth-utils" "^2.24.2"
+    "@moralisweb3/common-core" "^2.24.2"
+    "@moralisweb3/common-evm-utils" "^2.24.2"
+    "@moralisweb3/common-sol-utils" "^2.24.2"
 
-"@moralisweb3/common-aptos-utils@^2.23.2":
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/@moralisweb3/common-aptos-utils/-/common-aptos-utils-2.23.2.tgz"
-  integrity sha512-KJhiuAHHmAMkGkzAKNkBwJexrB3kG7VzqQz7VPLOqm25AIDKWEFPBG8Vmhr4a3sfmNRaObZ8FZaI6+Mh6dAdVA==
+"@moralisweb3/common-aptos-utils@^2.24.2":
+  version "2.24.2"
+  resolved "https://registry.npmjs.org/@moralisweb3/common-aptos-utils/-/common-aptos-utils-2.24.2.tgz"
+  integrity sha512-NViwi0NyUNOVyzyuC2Y+/Lk8IwwWPsJDeaBP3+ExuRADlKzjESVNlGgWGxWt5G8+clL6GGagcETfi6Mt60+WcA==
   dependencies:
-    "@moralisweb3/common-core" "^2.23.2"
+    "@moralisweb3/common-core" "^2.24.2"
     "@noble/hashes" "^1.2.0"
 
-"@moralisweb3/common-auth-utils@^2.23.2":
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/@moralisweb3/common-auth-utils/-/common-auth-utils-2.23.2.tgz"
-  integrity sha512-PaCYNza3r1MkANDNo3wFT0BqBjSFeGASSoeAOoctsVpSs8P8QxwG77FOJX5DjBGD/ze42tcdOQviK8XTi3qrRA==
+"@moralisweb3/common-auth-utils@^2.24.2":
+  version "2.24.2"
+  resolved "https://registry.npmjs.org/@moralisweb3/common-auth-utils/-/common-auth-utils-2.24.2.tgz"
+  integrity sha512-6eBlMLfgF9rUVzYLj7aFT5U0KhXO5s0Pgqgg4XW1aw7zc4/aCG3mBxxA+wgQKQfsKgbWLFyrksJKErRbVuS9aQ==
   dependencies:
     "@ethersproject/abi" "^5.7.0"
-    "@moralisweb3/common-aptos-utils" "^2.23.2"
-    "@moralisweb3/common-core" "^2.23.2"
-    "@moralisweb3/common-evm-utils" "^2.23.2"
-    "@moralisweb3/common-sol-utils" "^2.23.2"
+    "@moralisweb3/common-aptos-utils" "^2.24.2"
+    "@moralisweb3/common-core" "^2.24.2"
+    "@moralisweb3/common-evm-utils" "^2.24.2"
+    "@moralisweb3/common-sol-utils" "^2.24.2"
     "@moralisweb3/streams-typings" "^1.0.6"
 
-"@moralisweb3/common-core@^2.23.2":
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/@moralisweb3/common-core/-/common-core-2.23.2.tgz"
-  integrity sha512-MfZNAdY7NN593igKUG+9A1PIsajspysA3KD4JtdgQfTlMKkdL2TbNLmRa2ggoJ4hO5qWybnAXScxRh9mJGMMHg==
+"@moralisweb3/common-core@^2.24.2":
+  version "2.24.2"
+  resolved "https://registry.npmjs.org/@moralisweb3/common-core/-/common-core-2.24.2.tgz"
+  integrity sha512-2IxwNZB7qXEP1QrhwYHJ8c96jS9dUAYxb3ywsn0X3zq0UYTazzBE1n/NQCuxBpk9HGZLUZ8aZXYivf9rPh7tTg==
   dependencies:
     axios "^1.2.1"
 
-"@moralisweb3/common-evm-utils@^2.23.2":
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/@moralisweb3/common-evm-utils/-/common-evm-utils-2.23.2.tgz"
-  integrity sha512-34OH9+EKcJsjtC1qVYA06dEMl54KpBfeENlmLTIdSEKNPjlnbVmlJ7bseoO5kJSoHGtsbwnybordwv+4shlgFw==
+"@moralisweb3/common-evm-utils@^2.24.2":
+  version "2.24.2"
+  resolved "https://registry.npmjs.org/@moralisweb3/common-evm-utils/-/common-evm-utils-2.24.2.tgz"
+  integrity sha512-tmR5OkA14jgdK8YkO8b3hIoutyQfzx8xzvVgy4i8PZPWSC5VG+uCA26e/Nja8iO4D0JD2VPaWExQVkQFX1v1LA==
   dependencies:
     "@ethersproject/address" "^5.7.0"
     "@ethersproject/bytes" "^5.7.0"
     "@ethersproject/transactions" "^5.7.0"
-    "@moralisweb3/common-core" "^2.23.2"
+    "@moralisweb3/common-core" "^2.24.2"
 
-"@moralisweb3/common-sol-utils@^2.23.2":
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/@moralisweb3/common-sol-utils/-/common-sol-utils-2.23.2.tgz"
-  integrity sha512-gKe5rlMCFc1LKHlnDPlpVis0ySO3pFw8yyyeNibldwza6XoRBvSbx3iiVcNxCBg97/DwlYyH60QDGZyWzU7Hxw==
+"@moralisweb3/common-sol-utils@^2.24.2":
+  version "2.24.2"
+  resolved "https://registry.npmjs.org/@moralisweb3/common-sol-utils/-/common-sol-utils-2.24.2.tgz"
+  integrity sha512-+AQkU+//Fpi6Es0JbEwllIQnLOhL6NcZnj3Tflb2d+KArdbourGpill1XrrGSQLg8zT1Ul9c+R/LJRY3P5sk7g==
   dependencies:
-    "@moralisweb3/common-core" "^2.23.2"
+    "@moralisweb3/common-core" "^2.24.2"
     bn.js "^5.2.1"
     bs58 "^5.0.0"
     buffer "^6.0.3"
 
-"@moralisweb3/common-streams-utils@^2.23.2":
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/@moralisweb3/common-streams-utils/-/common-streams-utils-2.23.2.tgz"
-  integrity sha512-N32pYuz37y2xoRBuRFRYtlO265DQO2F0jr18xy9Veff/x+Doc6UUZztJsQHaHNFxgzCG3/xe6iS4LuvTX8MNRw==
+"@moralisweb3/common-streams-utils@^2.24.2":
+  version "2.24.2"
+  resolved "https://registry.npmjs.org/@moralisweb3/common-streams-utils/-/common-streams-utils-2.24.2.tgz"
+  integrity sha512-OAf+rUzMu8GFSRgqnBtY2OaHrv7RLFXCmDDYqlSYHIb00nMmdeJ0crHitvkaAZ6aGhMs+hJ3rjT2K66FJHe2jg==
   dependencies:
     "@ethersproject/abi" "^5.7.0"
-    "@moralisweb3/common-aptos-utils" "^2.23.2"
-    "@moralisweb3/common-core" "^2.23.2"
-    "@moralisweb3/common-evm-utils" "^2.23.2"
+    "@moralisweb3/common-aptos-utils" "^2.24.2"
+    "@moralisweb3/common-core" "^2.24.2"
+    "@moralisweb3/common-evm-utils" "^2.24.2"
     "@moralisweb3/streams-typings" "^1.0.7"
 
-"@moralisweb3/evm-api@^2.23.2":
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/@moralisweb3/evm-api/-/evm-api-2.23.2.tgz"
-  integrity sha512-SGtf24YdTVGrDTSwN8Cf9Oxr1UzmSRSdx8LLbt2gnghb3hQwwxt7H9s8uk3WEHDuK/mTX5dlUd+ohGQpWyjXPg==
+"@moralisweb3/evm-api@^2.24.2":
+  version "2.24.2"
+  resolved "https://registry.npmjs.org/@moralisweb3/evm-api/-/evm-api-2.24.2.tgz"
+  integrity sha512-JdHnQ+pPirYYqiJI2hqRi2thBuPUEyLsSzwgoceZYZqxOg6b7zRe/JnZwT49yd0En7zv9dusDblib+Q5ZR3reA==
   dependencies:
-    "@moralisweb3/api-utils" "^2.23.2"
-    "@moralisweb3/common-core" "^2.23.2"
-    "@moralisweb3/common-evm-utils" "^2.23.2"
+    "@moralisweb3/api-utils" "^2.24.2"
+    "@moralisweb3/common-core" "^2.24.2"
+    "@moralisweb3/common-evm-utils" "^2.24.2"
 
-"@moralisweb3/sol-api@^2.23.2":
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/@moralisweb3/sol-api/-/sol-api-2.23.2.tgz"
-  integrity sha512-+S+JYz8oVbrPLK9oIJ5jiF/xOAa+SSZSSyEigtKgev7FCYFDS540L85IEXa2eeMQ7MOGPxa9grGB9GPRr+US9g==
+"@moralisweb3/sol-api@^2.24.2":
+  version "2.24.2"
+  resolved "https://registry.npmjs.org/@moralisweb3/sol-api/-/sol-api-2.24.2.tgz"
+  integrity sha512-QJ78p6WuIh5vkbI/9vsBe/VxbMa7mc2sphPqqBOkDUcX8n4i+kn7nIayjpdDIh1n8+gjNqVgobqkkrEA9Ub7qg==
   dependencies:
-    "@moralisweb3/api-utils" "^2.23.2"
-    "@moralisweb3/common-core" "^2.23.2"
-    "@moralisweb3/common-sol-utils" "^2.23.2"
+    "@moralisweb3/api-utils" "^2.24.2"
+    "@moralisweb3/common-core" "^2.24.2"
+    "@moralisweb3/common-sol-utils" "^2.24.2"
 
 "@moralisweb3/streams-typings@^1.0.6", "@moralisweb3/streams-typings@^1.0.7":
   version "1.0.7"
   resolved "https://registry.npmjs.org/@moralisweb3/streams-typings/-/streams-typings-1.0.7.tgz"
   integrity sha512-ShbVqil0KLOTyTjO6z9JewPcVVE3S6kzkQFnW2flGBRsGdKucpkUdOx1HijOLoaikz/9gH92n+lzTvRFIj0AoA==
 
-"@moralisweb3/streams@^2.23.2":
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/@moralisweb3/streams/-/streams-2.23.2.tgz"
-  integrity sha512-pdfn1//JTGcXpQSMOyLqVXx75s9WqfdK1E7Jc2xq5UjM6mVcmVtfP5CqLniurwH8BfBldhZiu4xjpaITgE9KJA==
+"@moralisweb3/streams@^2.24.2":
+  version "2.24.2"
+  resolved "https://registry.npmjs.org/@moralisweb3/streams/-/streams-2.24.2.tgz"
+  integrity sha512-yYanTIX969kGOJz/6PCbOFR+Lqo3c/e8TGCfL+a0cVa0gzLQ7uBQb0kit2HCSD8UbwmpVKZerJH2sVT1sguzeA==
   dependencies:
     "@ethersproject/abi" "^5.7.0"
     "@ethersproject/bignumber" "^5.7.0"
     "@ethersproject/sha2" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
-    "@moralisweb3/api-utils" "^2.23.2"
-    "@moralisweb3/common-core" "^2.23.2"
-    "@moralisweb3/common-evm-utils" "^2.23.2"
-    "@moralisweb3/common-streams-utils" "^2.23.2"
+    "@moralisweb3/api-utils" "^2.24.2"
+    "@moralisweb3/common-core" "^2.24.2"
+    "@moralisweb3/common-evm-utils" "^2.24.2"
+    "@moralisweb3/common-streams-utils" "^2.24.2"
     "@moralisweb3/streams-typings" "^1.0.7"
     ethereumjs-util "^7.1.0"
     web3-eth-abi "^1.8.0"
@@ -911,7 +911,7 @@
   resolved "https://registry.npmjs.org/@noble/ed25519/-/ed25519-1.7.3.tgz"
   integrity sha512-iR8GBkDt0Q3GyaVcIu7mSsVIqnFbkbRzGLWlvhwunacoLwt4J3swfKhfaM6rN6WY+TBGoYT1GtT1mIh2/jGbRQ==
 
-"@noble/hashes@^1.1.3", "@noble/hashes@^1.2.0", "@noble/hashes@^1.3.1", "@noble/hashes@1.3.3":
+"@noble/hashes@^1.1.3", "@noble/hashes@^1.2.0", "@noble/hashes@^1.3.1", "@noble/hashes@^1.3.2", "@noble/hashes@1.3.3":
   version "1.3.3"
   resolved "https://registry.npmjs.org/@noble/hashes/-/hashes-1.3.3.tgz"
   integrity sha512-V7/fPHgl+jsVPXqqeOzT8egNj2iBIVt+ECeMMG8TdcnTikP3oaBtUVqpT/gYCR68aEBJSF+XbYUxStjbFMqIIA==
@@ -943,10 +943,10 @@
   dependencies:
     "@randlabs/communication-bridge" "1.0.1"
 
-"@raydium-io/raydium-sdk@^1.3.1-beta.42":
-  version "1.3.1-beta.42"
-  resolved "https://registry.npmjs.org/@raydium-io/raydium-sdk/-/raydium-sdk-1.3.1-beta.42.tgz"
-  integrity sha512-9QQagTI+XjhEGf99f2ehU7q7q+ZVFIqad10uFYbLjQ4S+iwwnO0lxQe7Ls8Qe0lwDQvBahCb3jra+nzokZrmFA==
+"@raydium-io/raydium-sdk@^1.3.1-beta.47":
+  version "1.3.1-beta.47"
+  resolved "https://registry.npmjs.org/@raydium-io/raydium-sdk/-/raydium-sdk-1.3.1-beta.47.tgz"
+  integrity sha512-vrUcFNq4lgkDHririlv83a2Sq/s438OZOYAsT56MWiVqoQLfC2u2muXMJhgp01M1OhXIqfsM5YSN/9/CrNnTvw==
   dependencies:
     "@solana/buffer-layout" "^4.0.1"
     "@solana/spl-token" "^0.3.9"
@@ -1006,6 +1006,42 @@
   dependencies:
     buffer "~6.0.3"
 
+"@solana/codecs-core@2.0.0-experimental.8618508":
+  version "2.0.0-experimental.8618508"
+  resolved "https://registry.npmjs.org/@solana/codecs-core/-/codecs-core-2.0.0-experimental.8618508.tgz"
+  integrity sha512-JCz7mKjVKtfZxkuDtwMAUgA7YvJcA2BwpZaA1NOLcted4OMC4Prwa3DUe3f3181ixPYaRyptbF0Ikq2MbDkYEA==
+
+"@solana/codecs-data-structures@2.0.0-experimental.8618508":
+  version "2.0.0-experimental.8618508"
+  resolved "https://registry.npmjs.org/@solana/codecs-data-structures/-/codecs-data-structures-2.0.0-experimental.8618508.tgz"
+  integrity sha512-sLpjL9sqzaDdkloBPV61Rht1tgaKq98BCtIKRuyscIrmVPu3wu0Bavk2n/QekmUzaTsj7K1pVSniM0YqCdnEBw==
+  dependencies:
+    "@solana/codecs-core" "2.0.0-experimental.8618508"
+    "@solana/codecs-numbers" "2.0.0-experimental.8618508"
+
+"@solana/codecs-numbers@2.0.0-experimental.8618508":
+  version "2.0.0-experimental.8618508"
+  resolved "https://registry.npmjs.org/@solana/codecs-numbers/-/codecs-numbers-2.0.0-experimental.8618508.tgz"
+  integrity sha512-EXQKfzFr3CkKKNzKSZPOOOzchXsFe90TVONWsSnVkonO9z+nGKALE0/L9uBmIFGgdzhhU9QQVFvxBMclIDJo2Q==
+  dependencies:
+    "@solana/codecs-core" "2.0.0-experimental.8618508"
+
+"@solana/codecs-strings@2.0.0-experimental.8618508":
+  version "2.0.0-experimental.8618508"
+  resolved "https://registry.npmjs.org/@solana/codecs-strings/-/codecs-strings-2.0.0-experimental.8618508.tgz"
+  integrity sha512-b2yhinr1+oe+JDmnnsV0641KQqqDG8AQ16Z/x7GVWO+AWHMpRlHWVXOq8U1yhPMA4VXxl7i+D+C6ql0VGFp0GA==
+  dependencies:
+    "@solana/codecs-core" "2.0.0-experimental.8618508"
+    "@solana/codecs-numbers" "2.0.0-experimental.8618508"
+
+"@solana/options@2.0.0-experimental.8618508":
+  version "2.0.0-experimental.8618508"
+  resolved "https://registry.npmjs.org/@solana/options/-/options-2.0.0-experimental.8618508.tgz"
+  integrity sha512-fy/nIRAMC3QHvnKi63KEd86Xr/zFBVxNW4nEpVEU2OT0gCEKwHY4Z55YHf7XujhyuM3PNpiBKg/YYw5QlRU4vg==
+  dependencies:
+    "@solana/codecs-core" "2.0.0-experimental.8618508"
+    "@solana/codecs-numbers" "2.0.0-experimental.8618508"
+
 "@solana/spl-account-compression@^0.1.4", "@solana/spl-account-compression@^0.1.8":
   version "0.1.10"
   resolved "https://registry.npmjs.org/@solana/spl-account-compression/-/spl-account-compression-0.1.10.tgz"
@@ -1017,6 +1053,18 @@
     borsh "^0.7.0"
     js-sha3 "^0.8.0"
     typescript-collections "^1.3.3"
+
+"@solana/spl-token-metadata@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/@solana/spl-token-metadata/-/spl-token-metadata-0.1.2.tgz"
+  integrity sha512-hJYnAJNkDrtkE2Q41YZhCpeOGU/0JgRFXbtrtOuGGeKc3pkEUHB9DDoxZAxx+XRno13GozUleyBi0qypz4c3bw==
+  dependencies:
+    "@solana/codecs-core" "2.0.0-experimental.8618508"
+    "@solana/codecs-data-structures" "2.0.0-experimental.8618508"
+    "@solana/codecs-numbers" "2.0.0-experimental.8618508"
+    "@solana/codecs-strings" "2.0.0-experimental.8618508"
+    "@solana/options" "2.0.0-experimental.8618508"
+    "@solana/spl-type-length-value" "0.1.0"
 
 "@solana/spl-token@^0.1.8":
   version "0.1.8"
@@ -1030,7 +1078,7 @@
     buffer-layout "^1.2.0"
     dotenv "10.0.0"
 
-"@solana/spl-token@^0.3.5", "@solana/spl-token@^0.3.6", "@solana/spl-token@^0.3.9":
+"@solana/spl-token@^0.3.5":
   version "0.3.9"
   resolved "https://registry.npmjs.org/@solana/spl-token/-/spl-token-0.3.9.tgz"
   integrity sha512-1EXHxKICMnab35MvvY/5DBc/K/uQAOJCYnDZXw83McCAYUAfi+rwq6qfd6MmITmSTEhcfBcl/zYxmW/OSN0RmA==
@@ -1039,16 +1087,51 @@
     "@solana/buffer-layout-utils" "^0.2.0"
     buffer "^6.0.3"
 
-"@solana/web3.js@^1.21.0", "@solana/web3.js@^1.32.0", "@solana/web3.js@^1.36.0", "@solana/web3.js@^1.47.4", "@solana/web3.js@^1.50.1", "@solana/web3.js@^1.56.2", "@solana/web3.js@^1.63.1", "@solana/web3.js@^1.66.2", "@solana/web3.js@^1.68.0", "@solana/web3.js@^1.73.0", "@solana/web3.js@^1.87.6":
-  version "1.87.6"
-  resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-1.87.6.tgz"
-  integrity sha512-LkqsEBgTZztFiccZZXnawWa8qNCATEqE97/d0vIwjTclmVlc8pBpD1DmjfVHtZ1HS5fZorFlVhXfpwnCNDZfyg==
+"@solana/spl-token@^0.3.6":
+  version "0.3.9"
+  resolved "https://registry.npmjs.org/@solana/spl-token/-/spl-token-0.3.9.tgz"
+  integrity sha512-1EXHxKICMnab35MvvY/5DBc/K/uQAOJCYnDZXw83McCAYUAfi+rwq6qfd6MmITmSTEhcfBcl/zYxmW/OSN0RmA==
   dependencies:
-    "@babel/runtime" "^7.23.2"
-    "@noble/curves" "^1.2.0"
-    "@noble/hashes" "^1.3.1"
     "@solana/buffer-layout" "^4.0.0"
-    agentkeepalive "^4.3.0"
+    "@solana/buffer-layout-utils" "^0.2.0"
+    buffer "^6.0.3"
+
+"@solana/spl-token@^0.3.9":
+  version "0.3.9"
+  resolved "https://registry.npmjs.org/@solana/spl-token/-/spl-token-0.3.9.tgz"
+  integrity sha512-1EXHxKICMnab35MvvY/5DBc/K/uQAOJCYnDZXw83McCAYUAfi+rwq6qfd6MmITmSTEhcfBcl/zYxmW/OSN0RmA==
+  dependencies:
+    "@solana/buffer-layout" "^4.0.0"
+    "@solana/buffer-layout-utils" "^0.2.0"
+    buffer "^6.0.3"
+
+"@solana/spl-token@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.npmjs.org/@solana/spl-token/-/spl-token-0.4.0.tgz"
+  integrity sha512-jjBIBG9IsclqQVl5Y82npGE6utdCh7Z9VFcF5qgJa5EUq2XgspW3Dt1wujWjH/vQDRnkp9zGO+BqQU/HhX/3wg==
+  dependencies:
+    "@solana/buffer-layout" "^4.0.0"
+    "@solana/buffer-layout-utils" "^0.2.0"
+    "@solana/spl-token-metadata" "^0.1.2"
+    buffer "^6.0.3"
+
+"@solana/spl-type-length-value@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@solana/spl-type-length-value/-/spl-type-length-value-0.1.0.tgz"
+  integrity sha512-JBMGB0oR4lPttOZ5XiUGyvylwLQjt1CPJa6qQ5oM+MBCndfjz2TKKkw0eATlLLcYmq1jBVsNlJ2cD6ns2GR7lA==
+  dependencies:
+    buffer "^6.0.3"
+
+"@solana/web3.js@^1.21.0", "@solana/web3.js@^1.32.0", "@solana/web3.js@^1.36.0", "@solana/web3.js@^1.47.4", "@solana/web3.js@^1.50.1", "@solana/web3.js@^1.56.2", "@solana/web3.js@^1.63.1", "@solana/web3.js@^1.66.2", "@solana/web3.js@^1.68.0", "@solana/web3.js@^1.73.0", "@solana/web3.js@^1.87.6", "@solana/web3.js@^1.89.1", "@solana/web3.js@^1.90.0":
+  version "1.90.0"
+  resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-1.90.0.tgz"
+  integrity sha512-p0cb/COXb8NNVSMkGMPwqQ6NvObZgUitN80uOedMB+jbYWOKOeJBuPnzhenkIV9RX0krGwyuY1Ltn5O8MGFsEw==
+  dependencies:
+    "@babel/runtime" "^7.23.4"
+    "@noble/curves" "^1.2.0"
+    "@noble/hashes" "^1.3.2"
+    "@solana/buffer-layout" "^4.0.1"
+    agentkeepalive "^4.5.0"
     bigint-buffer "^1.1.5"
     bn.js "^5.2.1"
     borsh "^0.7.0"
@@ -1056,7 +1139,7 @@
     buffer "6.0.3"
     fast-stable-stringify "^1.0.0"
     jayson "^4.1.0"
-    node-fetch "^2.6.12"
+    node-fetch "^2.7.0"
     rpc-websockets "^7.5.1"
     superstruct "^0.14.2"
 
@@ -1137,7 +1220,7 @@ aes-js@3.0.0:
   resolved "https://registry.npmjs.org/aes-js/-/aes-js-3.0.0.tgz"
   integrity sha512-H7wUZRn8WpTq9jocdxQ2c8x2sKo9ZVmzfRE13GiNJXfp7NcKYEdvl3vspKjXox6RIG2VtaRe4JFvxG4rqp2Zuw==
 
-agentkeepalive@^4.3.0:
+agentkeepalive@^4.5.0:
   version "4.5.0"
   resolved "https://registry.npmjs.org/agentkeepalive/-/agentkeepalive-4.5.0.tgz"
   integrity sha512-5GG/5IbQQpC9FpkRGsSvZI5QYeSCzlJHdpBQntCsuTOxhKD8lqKhrleg2Yi7yvMIf82Ycmmqln9U8V9qwEiJew==
@@ -1893,10 +1976,10 @@ dot-case@^3.0.4:
     no-case "^3.0.4"
     tslib "^2.0.3"
 
-dotenv@^16.3.1:
-  version "16.3.1"
-  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.3.1.tgz"
-  integrity sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==
+dotenv@^16.4.1:
+  version "16.4.1"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.4.1.tgz"
+  integrity sha512-CjA3y+Dr3FyFDOAMnxZEGtnW9KBR2M0JvvUtXNW+dYJL5ROWxP9DUHCwgFqpMk0OXCc0ljhaNTr2w/kutYIcHQ==
 
 dotenv@10.0.0:
   version "10.0.0"
@@ -2171,6 +2254,11 @@ fast-stable-stringify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/fast-stable-stringify/-/fast-stable-stringify-1.0.0.tgz"
   integrity sha512-wpYMUmFu5f00Sm0cj2pfivpmawLZ0NKdviQ4w9zJeR8JVtOpOxHmLaJuj0vxvGqMJQWyP/COUkF75/57OKyRag==
+
+fastestsmallesttextencoderdecoder@^1.0.22:
+  version "1.0.22"
+  resolved "https://registry.npmjs.org/fastestsmallesttextencoderdecoder/-/fastestsmallesttextencoderdecoder-1.0.22.tgz"
+  integrity sha512-Pb8d48e+oIuY4MaM64Cd7OW1gt4nxCHs7/ddPPZ/Ic3sg8yVGM7O9wDvZ7us6ScaUupzM+pfBolwtYhN1IxBIw==
 
 fecha@^4.2.3:
   version "4.2.3"
@@ -2956,23 +3044,23 @@ moment@^2.29.4:
   resolved "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
   integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
-moralis@^2.23.2:
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/moralis/-/moralis-2.23.2.tgz"
-  integrity sha512-4l+t5Wu6Sact3aicFR1gbtyEmmlSFn5sT9/rCWQ6pglMzzbFSnQKD1CKDoLXgW+khGaIxTtwYImM0OrGPqKK0A==
+moralis@^2.24.2:
+  version "2.24.2"
+  resolved "https://registry.npmjs.org/moralis/-/moralis-2.24.2.tgz"
+  integrity sha512-NKzjJt0bwJVJa/jUDsva0bvlUcuufYFhph4gINFQSIqGLlcapI4CsF9c3lu7extpuEOwIj/+EGmcf7ybc9vVcA==
   dependencies:
-    "@moralisweb3/api-utils" "^2.23.2"
-    "@moralisweb3/aptos-api" "^2.23.2"
-    "@moralisweb3/auth" "^2.23.2"
-    "@moralisweb3/common-aptos-utils" "^2.23.2"
-    "@moralisweb3/common-auth-utils" "^2.23.2"
-    "@moralisweb3/common-core" "^2.23.2"
-    "@moralisweb3/common-evm-utils" "^2.23.2"
-    "@moralisweb3/common-sol-utils" "^2.23.2"
-    "@moralisweb3/common-streams-utils" "^2.23.2"
-    "@moralisweb3/evm-api" "^2.23.2"
-    "@moralisweb3/sol-api" "^2.23.2"
-    "@moralisweb3/streams" "^2.23.2"
+    "@moralisweb3/api-utils" "^2.24.2"
+    "@moralisweb3/aptos-api" "^2.24.2"
+    "@moralisweb3/auth" "^2.24.2"
+    "@moralisweb3/common-aptos-utils" "^2.24.2"
+    "@moralisweb3/common-auth-utils" "^2.24.2"
+    "@moralisweb3/common-core" "^2.24.2"
+    "@moralisweb3/common-evm-utils" "^2.24.2"
+    "@moralisweb3/common-sol-utils" "^2.24.2"
+    "@moralisweb3/common-streams-utils" "^2.24.2"
+    "@moralisweb3/evm-api" "^2.24.2"
+    "@moralisweb3/sol-api" "^2.24.2"
+    "@moralisweb3/streams" "^2.24.2"
     "@moralisweb3/streams-typings" "^1.0.7"
 
 ms@^2.0.0, ms@^2.1.1, ms@2.1.2:
@@ -3035,7 +3123,7 @@ node-addon-api@^5.0.0:
   resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-5.1.0.tgz"
   integrity sha512-eh0GgfEkpnoWDq+VY8OyvYhFEzBk6jIYbRKdIlyTiAXIVJ8PyBaKb0rp7oDtoddbdoHWhq8wwr+XZ81F1rpNdA==
 
-node-fetch@^2.6.1, node-fetch@^2.6.12, node-fetch@^2.6.7:
+node-fetch@^2.6.1, node-fetch@^2.6.12, node-fetch@^2.6.7, node-fetch@^2.7.0:
   version "2.7.0"
   resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.7.0.tgz"
   integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==
@@ -3062,10 +3150,10 @@ node-telegram-bot-api@^0.64.0:
     mime "^1.6.0"
     pump "^2.0.0"
 
-nodemon@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.npmjs.org/nodemon/-/nodemon-3.0.2.tgz"
-  integrity sha512-9qIN2LNTrEzpOPBaWHTm4Asy1LxXLSickZStAQ4IZe7zsoIpD/A7LWxhZV3t4Zu352uBcqVnRsDXSMR2Sc3lTA==
+nodemon@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.npmjs.org/nodemon/-/nodemon-3.0.3.tgz"
+  integrity sha512-7jH/NXbFPxVaMwmBCC2B9F/V6X1VkEdNgx3iu9jji8WxWcvhMWkmhNWhI5077zknOnZnBzba9hZP6bCPJLSReQ==
   dependencies:
     chokidar "^3.5.2"
     debug "^4"
@@ -3576,10 +3664,10 @@ sequelize-pool@^7.1.0:
   resolved "https://registry.npmjs.org/sequelize-pool/-/sequelize-pool-7.1.0.tgz"
   integrity sha512-G9c0qlIWQSK29pR/5U2JF5dDQeqqHRragoyahj/Nx4KOOQ3CPPfzxnfqFPCSB7x5UgjOgnZ61nSxz+fjDpRlJg==
 
-sequelize@^6.35.2:
-  version "6.35.2"
-  resolved "https://registry.npmjs.org/sequelize/-/sequelize-6.35.2.tgz"
-  integrity sha512-EdzLaw2kK4/aOnWQ7ed/qh3B6/g+1DvmeXr66RwbcqSm/+QRS9X0LDI5INBibsy4eNJHWIRPo3+QK0zL+IPBHg==
+sequelize@^6.36.0:
+  version "6.36.0"
+  resolved "https://registry.npmjs.org/sequelize/-/sequelize-6.36.0.tgz"
+  integrity sha512-PqOa11EHwA/zLmGDU4aynbsavbHJUlgRvFuC/2cA4LhOuV6NHKcQ0IXB+hNdFrGT3rULmvc4kdIwnfCNsrECMQ==
   dependencies:
     "@types/debug" "^4.1.8"
     "@types/validator" "^13.7.17"
