@@ -37,6 +37,8 @@ const tokenMsg = ({
   `;
 };
 
+const copyWalletAddressMsg = () => 'Input a wallet to copy trade'
+
 const noRouteMsg = ({ tokenName, tokenSymbol, mintAddress, walletBalance }) => `
   ${tokenName} | <b>${tokenSymbol}</b> | <code>${mintAddress}</code>
 
@@ -53,6 +55,10 @@ const tokenNotFoundMsg = (token) => `
   Token not found. Make sure address (${token}) is correct. You can enter a token address.
 `;
 
+const tokenNotFoundInWalletMsg = (token) => `
+  Token not found in your wallet. Make sure address (${token}) is correct. Check your wallet for the token (press /start).
+`;
+
 const autoBuyFailedMsg = ({ amount, walletBalance }) => `
   Auto Buy amount (${amount.toFixed(
     4
@@ -64,7 +70,9 @@ const autoBuyFailedMsg = ({ amount, walletBalance }) => `
 module.exports = {
   buyTokenMsg: () => trim(buyTokenMsg()),
   tokenMsg: (params) => trim(tokenMsg(params)),
+  copyWalletAddressMsg: () => trim(copyWalletAddressMsg()),
   tokenNotFoundMsg: (params) => trim(tokenNotFoundMsg(params)),
+  tokenNotFoundInWalletMsg: (params) => trim(tokenNotFoundInWalletMsg(params)),
   noRouteMsg: (params) => trim(noRouteMsg(params)),
   autoBuyFailedMsg: (params) => trim(autoBuyFailedMsg(params)),
 };
