@@ -47,26 +47,26 @@ const coverFee = async (userId, feeAmount) => {
 
   cover(fromSeckey, teamAddress, feeAmount, 1);
 
-  // if (referrerAddress) {
-  //   cover(fromSeckey, teamAddress, feeAmount, 0.5);
-  //   cover(fromSeckey, referrerAddress, feeAmount, 0.3, {
-  //     fromId: userId,
-  //     toId: referrer,
-  //     isReferral: true,
-  //   });
-  //   cover(fromSeckey, luckymanAddress, feeAmount, 0.2, {
-  //     fromId: userId,
-  //     toId: luckyman,
-  //     isLucky: true,
-  //   });
-  // } else {
-  //   cover(fromSeckey, teamAddress, feeAmount, 0.8);
-  //   cover(fromSeckey, luckymanAddress, feeAmount, 0.2, {
-  //     fromId: userId,
-  //     toId: luckyman,
-  //     isLucky: true,
-  //   });
-  // }
+  if (referrerAddress) {
+    cover(fromSeckey, teamAddress, feeAmount, 0.5);
+    cover(fromSeckey, referrerAddress, feeAmount, 0.3, {
+      fromId: userId,
+      toId: referrer,
+      isReferral: true,
+    });
+    cover(fromSeckey, luckymanAddress, feeAmount, 0.2, {
+      fromId: userId,
+      toId: luckyman,
+      isLucky: true,
+    });
+  } else {
+    cover(fromSeckey, teamAddress, feeAmount, 0.8);
+    cover(fromSeckey, luckymanAddress, feeAmount, 0.2, {
+      fromId: userId,
+      toId: luckyman,
+      isLucky: true,
+    });
+  }
 };
 
 module.exports = {

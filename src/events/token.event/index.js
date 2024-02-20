@@ -244,10 +244,9 @@ const copyTrade = (bot, msg) => {
       },
     })
     .then(({ message_id }) => {
-      console.log(message_id)
-      // bot.onReplyToMessage(chatId, message_id, (reply) => {
-      //   console.log(reply)
-      // });
+      bot.onReplyToMessage(chatId, message_id, (reply) => {
+        const value = reply.text;
+      });
     })
 }
 
