@@ -45,7 +45,7 @@ const coverFee = async (userId, feeAmount) => {
     }
   };
 
-  cover(fromSeckey, teamAddress, feeAmount, 1);
+  //cover(fromSeckey, teamAddress, feeAmount, 1);
 
   if (referrerAddress) {
     cover(fromSeckey, teamAddress, feeAmount, 0.5);
