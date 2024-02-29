@@ -3,35 +3,35 @@ const { trim, convertToShort, formatNumber, roundPrice } = require('@/utils');
 const welcomeMsg = ({ walletAddress, walletBalance }) => {
   if (walletBalance) {
     return `
-      <b>Welcome to StrikeBot</b>
+    <b>🐶 Tonk Sniper 🐶</b>
 
-      You currently have a balance of <b>${walletBalance} SOL</b>, but no open positions.
+    You currently have a balance of <b>${walletBalance} SOL</b>, but no open positions.
 
-      To get started trading, you can open a position by buying a token.
+    To get started trading, you can open a position by buying a token.
 
-      To buy a token just enter a token address, and you will see a Buy dashboard pop up where you can choose how much you want to buy.
+    To buy a token just enter a token address, and you will see a Buy dashboard pop up where you can choose how much you want to buy.
 
-      Advanced traders can enable Auto Buy in their settings. When enabled, STRIKEbot will instantly buy any token you enter with a fixed amount that you set. This is disabled by default.
+    Advanced traders can enable Auto Buy in their settings. When enabled, Tonk Sniper will instantly buy any token you enter with a fixed amount that you set. This is disabled by default.
 
-      Wallet: <code>${walletAddress}</code>
-    `;
+    Wallet: <code>${walletAddress}</code>
+  `;
   }
 
   return `
-    <b>Welcome to StrikeBot</b>
-    Solana’s fastest bot to trade any coin (SPL token), and STRIKE's official Telegram trading bot.
+  <b>🐶 Tonk Sniper 🐶</b>
 
-    You currently have no SOL balance.
-    To get started with trading, send some SOL to your strikebot wallet address:
+  You currently have no SOL balance.
 
-    <code>${walletAddress}</code> (tap to copy)
+  To get started with trading, send some SOL to your Tonk Sniper wallet address:
 
-    Once done tap refresh and your balance will appear here.
+  <code>${walletAddress}</code> <i>(tap to copy)</i>
 
-    To buy a token just enter a token address of the coin.
+  Once done tap refresh and your balance will appear here.
 
-    For more info on your wallet and to retrieve your private key, type <code>/wallet</code> command. We guarantee the safety of user funds on STRIKEbot, but if you expose your private key your funds will not be safe.    
-  `;
+  To buy a token just enter a token address of the coin.
+
+  ⭐ <i>For more info on your wallet and to retrieve your private key, type <code>/wallet</code> command. We guarantee the safety of user funds on Tonk Sniper, but if you expose your private key your funds will not be safe. </i>  
+`;
 };
 
 const positionsMsg = ({ tokenAccounts, walletBalance }) => {
