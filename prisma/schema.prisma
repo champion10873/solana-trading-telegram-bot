@@ -51,21 +51,21 @@ model Wallet {
 }
 
 model Settings {
-  id               String  @id
-  minPosValue      Float   @default(0.001)
-  autoBuy          Boolean @default(false)
-  autoBuyAmount    Float   @default(0.1)
-  autoSell         Boolean @default(false)
-  autoSellAmount   Int     @default(50)
-  leftBuyAmount    Float   @default(1.0)
-  rightBuyAmount   Float   @default(5.0)
-  leftSellAmount   Float   @default(25)
-  rightSellAmount  Float   @default(100)
-  buySlippage      Float   @default(20)
-  sellSlippage     Float   @default(20)
-  autoBuySlippage  Float   @default(20)
-  autoSellSlippage Float   @default(20)
-  gasFee           Float   @default(0.0005)
+  id               String @id
+  minPosValue      Float  @default(0.001)
+  autoBuy          Int    @default(0)
+  autoBuyAmount    Float  @default(0.1)
+  autoSell         Int    @default(0)
+  autoSellAmount   Int    @default(50)
+  leftBuyAmount    Float  @default(1.0)
+  rightBuyAmount   Float  @default(5.0)
+  leftSellAmount   Float  @default(25)
+  rightSellAmount  Float  @default(100)
+  buySlippage      Float  @default(20)
+  sellSlippage     Float  @default(20)
+  autoBuySlippage  Float  @default(20)
+  autoSellSlippage Float  @default(20)
+  gasFee           Float  @default(0.0005)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
