@@ -138,6 +138,7 @@ const editSetting = async (bot, msg, params) => {
 
   bot
     .sendMessage(chatId, message, {
+      parse_mode: 'HTML',
       reply_markup: {
         force_reply: true,
       },

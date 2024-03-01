@@ -3,10 +3,10 @@ const { trim } = require('@/utils');
 const settingsMsg = () => `
   <b>⚙️ SETTINGS:</b>
 
-  <b>= AUTO BUY</b>
+  <b>== AUTO BUY</b>
   Immediately buy when pasting token address. Tap to toggle.
 
-  <b>AUTO SELL</b>
+  <b>== AUTO SELL</b>
   Automatically set your specified limit sell orders for any swap or Auto Buy made. Click “Add Order” to add additional orders to your strategy. Reply “none” to either prompt to remove an order.
 
   - Set a S/L by using a negative percentage (-XX%) and updating the sell amount to 100% or less.
@@ -24,13 +24,13 @@ const settingsMsg = () => `
   400%; 20%
   1000%; 10%
 
-  <b>= BUTTONS CONFIG</b>
+  <b>== BUTTONS CONFIG</b>
   Customize your buy and sell buttons for buy token and manage position. Tap to edit.
 
-  <b>= SLIPPAGE CONFIG</b>
+  <b>== SLIPPAGE CONFIG</b>
   Customize your slippage settings for buys and sells. Tap to edit.
 
-  <b>= TRANSACTION PRIORITY</b>
+  <b>== TRANSACTION PRIORITY</b>
   Increase your Transaction Priority to improve transaction speed. Select preset or tap to edit.
 `;
 
@@ -43,11 +43,11 @@ const minPosValueMsg = (minPosValue) => `
 `;
 
 const autoBuyMsg = (value) => `
-🟢 Auto Buy ${value ? 'enabled' : 'disabled'}.
+Auto Buy ${value ? '🟢 enabled' : '🔴 disabled'}.
 `;
 
 const autoSellMsg = (value) => `
-🔴 Auto Sell ${value ? 'enabled' : 'disabled'}.
+Auto Sell ${value ? '🟢 enabled' : '🔴 disabled'}.
 `;
 
 const replyAutoBuyAmountMsg = () => `
