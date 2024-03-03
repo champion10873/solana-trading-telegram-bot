@@ -3,7 +3,7 @@ const { trim, convertToShort, formatNumber, roundPrice } = require('@/utils');
 const welcomeMsg = ({ walletAddress, walletBalance }) => {
   if (walletBalance) {
     return `
-      <b>Welcome to StrikeBot</b>
+      <b>Welcome to Tonk Sniper Bot</b>
 
       You currently have a balance of <b>${walletBalance} SOL</b>, but no open positions.
 
@@ -11,7 +11,7 @@ const welcomeMsg = ({ walletAddress, walletBalance }) => {
 
       To buy a token just enter a token address, and you will see a Buy dashboard pop up where you can choose how much you want to buy.
 
-      Advanced traders can enable Auto Buy in their settings. When enabled, STRIKEbot will instantly buy any token you enter with a fixed amount that you set. This is disabled by default.
+      Advanced traders can enable Auto Buy in their settings. When enabled, Tonk Sniper bot will instantly buy any token you enter with a fixed amount that you set. This is disabled by default.
 
       Wallet: <code>${walletAddress}</code>
 
@@ -20,11 +20,11 @@ const welcomeMsg = ({ walletAddress, walletBalance }) => {
   }
 
   return `
-    <b>Welcome to StrikeBot</b>
-    Solana’s fastest bot to trade any coin (SPL token), and STRIKE's official Telegram trading bot.
+    <b>Welcome to Tonk Sniper Bot</b>
+    Solana’s fastest bot to trade any coin (SPL token), and Tonk Sniper 's official Telegram trading bot.
 
     You currently have no SOL balance.
-    To get started with trading, send some SOL to your strikebot wallet address:
+    To get started with trading, send some SOL to your Tonk Sniper bot wallet address:
 
     <code>${walletAddress}</code> (tap to copy)
 
@@ -32,7 +32,7 @@ const welcomeMsg = ({ walletAddress, walletBalance }) => {
 
     To buy a token just enter a token address of the coin.
 
-    For more info on your wallet and to retrieve your private key, type <code>/wallet</code> command. We guarantee the safety of user funds on STRIKEbot, but if you expose your private key your funds will not be safe.    
+    For more info on your wallet and to retrieve your private key, type <code>/wallet</code> command. We guarantee the safety of user funds on Tonk Sniper bot, but if you expose your private key your funds will not be safe.    
 
     💰Fee Discount: You are receiving a 10% discount on trading fees for being a referral of another user.
   `;

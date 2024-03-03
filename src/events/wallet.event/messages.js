@@ -18,11 +18,11 @@ const walletAddressMsg = (address) => `
 `;
 
 const resetWalletMsg = () => `
-  Are you sure you want to reset your STRIKEbot <b>Wallet</b>?
+  Are you sure you want to reset your Tonk Sniper bot <b>Wallet</b>?
 
   <b>WARNING</b>: This action is irreversible!
 
-  STRIKEbot will generate a new wallet for you and discard your old one.
+  Tonk Sniper bot will generate a new wallet for you and discard your old one.
 `;
 
 const oldPrivateKeyMsg = (secretKey) => `
