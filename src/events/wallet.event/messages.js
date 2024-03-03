@@ -3,26 +3,26 @@ const { trim } = require('@/utils');
 const walletMsg = ({ address, balance }) => `
   <b>💳 Your Wallet</b>:
     
-  <b>  </b>🔑 Address: <code>${address}</code>
+  <b>  </b>Address: <code>${address}</code>
   <b>  </b>⚖️ Balance: <b>${balance.toFixed(9)}</b> SOL
   
   <b>  </b>Tap to copy the address and send SOL to deposit.
 `;
 
 const depositMsg = () => `
-↪️ To deposit send SOL to below address:
+  To deposit send SOL to below address:
 `;
 
 const walletAddressMsg = (address) => `
-💳 <code>${address}</code>
+  <code>${address}</code>
 `;
 
 const resetWalletMsg = () => `
-  Are you sure you want to reset your Tonk Sniper <b>Wallet</b>?
+  Are you sure you want to reset your STRIKEbot <b>Wallet</b>?
 
-  🚨 <b>WARNING</b>: This action is irreversible!
+  <b>WARNING</b>: This action is irreversible!
 
-  Tonk Sniper will generate a new wallet for you and discard your old one.
+  STRIKEbot will generate a new wallet for you and discard your old one.
 `;
 
 const oldPrivateKeyMsg = (secretKey) => `
@@ -35,7 +35,7 @@ const oldPrivateKeyMsg = (secretKey) => `
 `;
 
 const newWalletMsg = (address) => `
-✅ Success: Your new wallet is:
+  Success: Your new wallet is:
 
   <code>${address}</code>
 
@@ -43,7 +43,7 @@ const newWalletMsg = (address) => `
 `;
 
 const exportPrivateKeyMsg = () => `
-❗️🔐 Are you sure you want to export your <b>Private Key</b>?
+  Are you sure you want to export your <b>Private Key</b>?
 `;
 
 const privateKeyMsg = (secretKey) => `

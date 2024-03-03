@@ -1,25 +1,38 @@
+const { LAMPORTS_PER_SOL, PublicKey } = require('@solana/web3.js');
+const connection = require('@/configs/connection');
+const { createCopyTrade } = require('@/controllers/copy.controller');
 const { findSettings } = require('@/controllers/settings.controller');
+const { findStrategy } = require('@/controllers/strategy.controller');
+const { getTradesData } = require('@/controllers/trade.controller');
+const { findUser } = require('@/controllers/user.controller');
 const { findWallet } = require('@/controllers/wallet.controller');
 const {
   SettingsNotFoundError,
   WalletNotFoundError,
 } = require('@/errors/common');
 const { buyAmount } = require('@/events/buy.event');
+const { parseTransaction } = require('@/events/copy.event');
 const { sellPercent } = require('@/events/sell.event');
 const { getPair } = require('@/services/dexscreener');
 const { getBalance } = require('@/services/solana');
 const { getTokenMetadata } = require('@/services/metaplex');
 const { getTokenAccountsByOwner } = require('@/features/token.feature');
+const { clearAllInterval, setIntervalID } = require('@/store');
 const {
   buyTokenMsg,
   tokenMsg,
   tokenNotFoundMsg,
-  tokenNotFoundInWalletMsg,
   noRouteMsg,
   autoBuyFailedMsg,
-  copyWalletAddressMsg,
+  copyWalletMsg,
+  invalidInputMsg,
+  invalidWalletAddressMsg,
+  copyTradeMsg,
+  tokenSniperSettingMsg,
 } = require('./messages');
 const { buyTokenKeyboard, tokenKeyboard } = require('./keyboards');
+
+const TimeInterval = 30 * 1000;
 
 const buyToken = (bot, msg) => {
   const chatId = msg.chat.id;
@@ -43,11 +56,6 @@ const processToken = async (bot, msg) => {
 
   if (settings.autoBuy) {
     autoBuyToken(bot, msg, {
-      mintAddress: msg.text,
-      settings,
-    });
-  } else if (settings.autoSell) {
-    autoSellToken(bot, msg, {
       mintAddress: msg.text,
       settings,
     });
@@ -97,8 +105,22 @@ const autoBuyToken = async (bot, msg, params) => {
   });
 };
 
-const autoSellToken = async (bot, msg, params) => {
+const autoSellToken = async (bot, msg) => {
   const chatId = msg.chat.id;
+
+  if (findUser(chatId) === null) {
+    console.log('New User');
+    return;
+  }
+
+  const settings = await findSettings(chatId);
+  if (settings === null) {
+    console.error(SettingsNotFoundError);
+    return;
+  }
+  if (!settings.autoSell) {
+    return;
+  }
 
   const wallet = findWallet(chatId);
   if (wallet === null) {
@@ -106,30 +128,70 @@ const autoSellToken = async (bot, msg, params) => {
     return;
   }
 
-  const { mintAddress, settings } = params;
+  const tokens = await getTokenAccountsByOwner(wallet.publicKey);
 
-  try {
-    await getTokenMetadata(mintAddress);
-  } catch (e) {
-    console.error(e);
-    bot.sendMessage(chatId, tokenNotFoundMsg(mintAddress));
-    return;
-  }
-
-  const tokens = (await getTokenAccountsByOwner(wallet.publicKey)).filter((token) => token.mint === mintAddress);
   if (tokens.length === 0) {
-    bot.sendMessage(chatId, tokenNotFoundInWalletMsg(mintAddress));
+    console.log('Empty Token')
     return;
   }
 
-  sellPercent(bot, msg, {
-    tokenInfo: tokens[0],
-    percent: settings.autoSellAmount,
-    isAuto: true,
+  tokens.forEach(async (token) => {
+    try {
+      await getTokenMetadata(token.mint);
+    } catch (e) {
+      console.error(e);
+      bot.sendMessage(chatId, tokenNotFoundMsg(token.mint));
+      return;
+    }
+
+    const { mint, decimals, priceNative } = token;
+    const { initial, baseAmount, quoteAmount } = await getTradesData(
+      chatId,
+      mint
+    );
+
+    const profitSol =
+      (quoteAmount / 10 ** decimals) * priceNative -
+      baseAmount / LAMPORTS_PER_SOL;
+    const profitPercent = (profitSol * 100.0) / (initial / LAMPORTS_PER_SOL);
+
+    const strategies = await findStrategy(chatId);
+    for (const strategy of strategies) {
+      if (profitPercent > 0 && strategy.percent > 0 && profitPercent >= strategy.percent) {
+        sellPercent(bot, msg, {
+          tokenInfo: token,
+          percent: strategy.amount,
+          isAuto: true,
+        });
+      }
+      if (profitPercent < 0 && strategy.percent < 0 && profitPercent <= strategy.percent) {
+        sellPercent(bot, msg, {
+          tokenInfo: token,
+          percent: strategy.amount,
+          isAuto: true,
+        });
+      }
+    }
   });
 };
 
 const showToken = async (bot, msg, params) => {
+  await showTokenInterval(bot, msg, params);
+
+  // clearAllInterval();
+
+  // const id = setInterval(async () => {
+  //   await showTokenInterval(bot, msg, { ...params, refresh: true });
+  // }, TimeInterval)
+
+  // setIntervalID({
+  //   start: null,
+  //   managePostition: null,
+  //   token: id,
+  // })
+};
+
+const showTokenInterval = async (bot, msg, params) => {
   const chatId = msg.chat.id;
   const { mintAddress, refresh } = params;
 
@@ -145,7 +207,7 @@ const showToken = async (bot, msg, params) => {
     return;
   }
 
-  const { message, keyboard } = await showToken.getMessage({
+  const { message, keyboard } = await showTokenInterval.getMessage({
     walletAddress: wallet.publicKey,
     mintAddress,
     settings,
@@ -170,9 +232,9 @@ const showToken = async (bot, msg, params) => {
       })
       .catch(() => { });
   }
-};
+}
 
-showToken.getMessage = async ({ walletAddress, mintAddress, settings }) => {
+showTokenInterval.getMessage = async ({ walletAddress, mintAddress, settings }) => {
   let metadata, walletBalance;
   let priceUsd, priceChange;
   let liquidity, pooledSol;
@@ -237,15 +299,72 @@ showToken.getMessage = async ({ walletAddress, mintAddress, settings }) => {
 const copyTrade = (bot, msg) => {
   const chatId = msg.chat.id;
   bot
-    .sendMessage(chatId, copyWalletAddressMsg(), {
+    .sendMessage(chatId, copyWalletMsg(), {
       parse_mode: 'HTML',
       reply_markup: {
         force_reply: true,
       },
     })
     .then(({ message_id }) => {
-      bot.onReplyToMessage(chatId, message_id, (reply) => {
-        const value = reply.text;
+      bot.onReplyToMessage(chatId, message_id, async (reply) => {
+        const text = reply.text.split(' ');
+        const copyWalletAddress = text[0];
+        const amount = parseFloat(text[1]);
+
+        const isAddressValidated = PublicKey.isOnCurve(new PublicKey(copyWalletAddress))
+
+        if (!isAddressValidated) {
+          bot.sendMessage(chatId, invalidWalletAddressMsg());
+          return;
+        }
+        if (text.length < 2) {
+          bot.sendMessage(chatId, invalidInputMsg(), {
+            parse_mode: 'HTML'
+          });
+          return;
+        }
+        if (amount < 0) {
+          bot.sendMessage(chatId, invalidInputMsg(), {
+            parse_mode: 'HTML'
+          });
+          return;
+        }
+
+        await createCopyTrade({ copyWalletAddress, amount, userId: chatId.toString() });
+
+        bot.sendMessage(chatId, copyTradeMsg());
+
+        connection.onAccountChange(new PublicKey(copyWalletAddress), async () => {
+          parseTransaction(bot, msg, { copyWalletAddress })
+        })
+      });
+    })
+}
+
+const tokenSniper = (bot, msg) => {
+  const chatId = msg.chat.id;
+  let metadata;
+
+  bot
+    .sendMessage(chatId, tokenSniperSettingMsg(), {
+      parse_mode: 'HTML',
+      reply_markup: {
+        force_reply: true,
+      },
+    })
+    .then(({ message_id }) => {
+      bot.onReplyToMessage(chatId, message_id, async (reply) => {
+        const sniperTokenMint = reply.text;
+
+        try {
+          metadata = await getTokenMetadata(sniperTokenMint);
+        } catch (e) {
+          console.error(e);
+          bot.sendMessage(chatId, tokenNotFoundMsg(sniperTokenMint), {
+            parse_mode: 'HTML',
+          });
+          return;
+        }
       });
     })
 }
@@ -255,5 +374,7 @@ module.exports = {
   processToken,
   showToken,
   autoBuyToken,
+  autoSellToken,
   copyTrade,
+  tokenSniper,
 };

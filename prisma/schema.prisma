@@ -26,15 +26,15 @@ model Income {
 
 model User {
   id         String  @id
-  username   String?
   referrerId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   //referrer   User?    @relation("Referrer", fields: [referrerId], references: [id])
-  Strategy Strategy[]
-  Trade    Trade[]
+  Strategy  Strategy[]
+  Trade     Trade[]
+  CopyTrade CopyTrade[]
 
   @@map("users")
 }
@@ -101,4 +101,18 @@ model Trade {
   user User @relation(fields: [userId], references: [id])
 
   @@map("trades")
+}
+
+model CopyTrade {
+  id                Int    @id @default(autoincrement())
+  copyWalletAddress String
+  amount            Float
+  userId            String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("copy_trade")
 }

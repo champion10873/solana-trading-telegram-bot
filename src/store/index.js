@@ -4,6 +4,12 @@ const store = {
   referrers: {},
   numberOfReferrals: {},
   lifeTimeIncomes: {},
+  intervalID: {
+    start: null,
+    managePositions: null,
+    token: null,
+    autoSell: null,
+  },
 
   getUser: function (id) {
     return this.users[id] || null;
@@ -33,6 +39,38 @@ const store = {
       this.referrers[referrerId] = id;
     }
   },
+
+  getIntervalID: function () {
+    return this.intervalID || {
+      start: null,
+      managePositions: null,
+      token: null,
+      autoSell: null,
+    };
+  },
+
+  setIntervalID: function (id) {
+    this.intervalID = id;
+  },
+
+  clearAllInterval: function () {
+    if (this.intervalID?.start) {
+      clearInterval(this.intervalID.start);
+    }
+    if (this.intervalID?.managePositions) {
+      clearInterval(this.intervalID.managePositions);
+    }
+    if (this.intervalID?.token) {
+      clearInterval(this.intervalID.token);
+    }
+
+    this.intervalID = {
+      start: null,
+      managePositions: null,
+      token: null,
+      autoSell: this.intervalID.autoSell,
+    };
+  }
 };
 
 module.exports = store;
