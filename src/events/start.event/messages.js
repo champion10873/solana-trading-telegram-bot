@@ -3,7 +3,7 @@ const { trim, convertToShort, formatNumber, roundPrice } = require('@/utils');
 const welcomeMsg = ({ walletAddress, walletBalance }) => {
   if (walletBalance) {
     return `
-      <b>Welcome to Tonk Sniper Bot</b>
+      <b>🐶 Tonk Sniper 🐶</b>
 
       You currently have a balance of <b>${walletBalance} SOL</b>, but no open positions.
 
@@ -20,19 +20,19 @@ const welcomeMsg = ({ walletAddress, walletBalance }) => {
   }
 
   return `
-    <b>Welcome to Tonk Sniper Bot</b>
-    Solana’s fastest bot to trade any coin (SPL token), and Tonk Sniper 's official Telegram trading bot.
+    <b>🐶 Tonk Sniper 🐶</b>
 
     You currently have no SOL balance.
-    To get started with trading, send some SOL to your Tonk Sniper bot wallet address:
 
-    <code>${walletAddress}</code> (tap to copy)
+    To get started with trading, send some SOL to your Tonk Sniper wallet address:
+
+    <code>${walletAddress}</code> <i>(tap to copy)</i>
 
     Once done tap refresh and your balance will appear here.
 
     To buy a token just enter a token address of the coin.
 
-    For more info on your wallet and to retrieve your private key, type <code>/wallet</code> command. We guarantee the safety of user funds on Tonk Sniper bot, but if you expose your private key your funds will not be safe.    
+    ⭐ <i>For more info on your wallet and to retrieve your private key, type <code>/wallet</code> command. We guarantee the safety of user funds on Tonk Sniper bot, but if you expose your private key your funds will not be safe.</i>
 
     💰Fee Discount: You are receiving a 10% discount on trading fees for being a referral of another user.
   `;

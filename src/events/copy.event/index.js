@@ -27,7 +27,6 @@ const parseTransaction = async (bot, msg, { copyWalletAddress }) => {
   const transaction = await connection.getTransaction(signatures[0].signature, {
     maxSupportedTransactionVersion: 0
   });
-  console.log('meta => ', transaction.meta)
 
   const meta = transaction.meta
   if (meta.err) return;
@@ -36,25 +35,29 @@ const parseTransaction = async (bot, msg, { copyWalletAddress }) => {
   const preTokenBalances = meta.preTokenBalances;
   if (postTokenBalances.length === 0 || preTokenBalances.length === 0)
     return;
-
-  const targetTokenBalances = postTokenBalances.slice(-1)[0];
-  const postAmount = targetTokenBalances.uiTokenAmount.amount;
-  const preAmount = preTokenBalances.slice(-1)[0].uiTokenAmount.amount;
-  console.log('targetToken => ', targetTokenBalances)
+  console.log('postTokenBalances => ', postTokenBalances)
+  console.log('preTokenBalances => ', preTokenBalances)
 
   let inputMint, outputMint, slippage, amount, mode;
   const isAuto = true;
+
+  const targetTokenBalances = postTokenBalances.filter(one => one.owner === copyWalletAddress);
+  console.log("targetTokneBalances => ", targetTokenBalances)
+  if (targetTokenBalances.length <= 0)
+    return
+  const postAmount = targetTokenBalances[0].uiTokenAmount.amount;
+  const preAmount = preTokenBalances.filter(one => one.accountIndex === targetTokenBalances[0].accountIndex)[0].uiTokenAmount.amount;
 
   if (postAmount === preAmount) {
     return
   } else if (postAmount > preAmount) {
     inputMint = 'So11111111111111111111111111111111111111112';
-    outputMint = targetTokenBalances.mint;
+    outputMint = targetTokenBalances[0].mint;
     slippage = settings.autoBuySlippage;
     amount = parseInt((postAmount - preAmount) * 0.99);
     mode = 'buy';
   } else {
-    inputMint = targetTokenBalances.mint;
+    inputMint = targetTokenBalances[0].mint;
     outputMint = 'So11111111111111111111111111111111111111112';
     slippage = settings.autoSellSlippage;
     amount = parseInt((preAmount - postAmount) / preAmount);
