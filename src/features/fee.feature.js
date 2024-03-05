@@ -16,13 +16,13 @@ const coverFee = async (userId, feeAmount) => {
 
   console.log('Fee is ', feeAmount);
 
-  const cover = (fromSeckey, toPubkey, amount, percent, options) => {
+  const cover = async (fromSeckey, toPubkey, amount, percent, options) => {
     const value = parseInt(amount * percent - GAS_FEE);
     if (value <= 0) {
       return;
     }
     try {
-      transferLamports(fromSeckey, toPubkey, value);
+      await transferLamports(fromSeckey, toPubkey, value);
 
       if (options?.isReferral) {
         createIncome({
@@ -36,13 +36,27 @@ const coverFee = async (userId, feeAmount) => {
     }
   };
 
+  //cover(fromSeckey, teamAddress, feeAmount, 1);
+  /* console.log("userId", userId)
+  console.log("referrer", referrer)
+  console.log("teamAddress", teamAddress)
+  console.log("referrerAddress", referrerAddress) */
+
+  /* cover(fromSeckey, referrerAddress, feeAmount, 1, {
+    fromId: userId,
+    toId: referrer,
+    isReferral: true,
+  }); */
+  
   if (referrerAddress) {
-    cover(fromSeckey, teamAddress, feeAmount, 0.7);
-    cover(fromSeckey, referrerAddress, feeAmount, 0.3, {
+    await cover(fromSeckey, teamAddress, feeAmount, 0.7);
+
+    await cover(fromSeckey, referrerAddress, feeAmount, 0.3, {
       fromId: userId,
       toId: referrer,
       isReferral: true,
     });
+
   } else {
     cover(fromSeckey, teamAddress, feeAmount, 1);
   }

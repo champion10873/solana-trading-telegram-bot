@@ -40,7 +40,7 @@ const findRandomUser = async () => {
 };
 
 const findReferrer = (id) => {
-  return store.getReferrer(id);
+  return store.getReferrer(id.toString());
 };
 
 const getNumberOfReferrals = async (id) => {

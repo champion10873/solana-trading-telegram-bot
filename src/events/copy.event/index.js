@@ -135,9 +135,9 @@ const copyTrade = async (bot, msg, params) => {
       quoteResponse.inputMint ===
       'So11111111111111111111111111111111111111112'
     ) {
-      coverFee(chatId, amount / 100);
+      await coverFee(chatId, amount / 100);
     } else {
-      coverFee(chatId, quoteResponse.outAmount / 100);
+      await coverFee(chatId, quoteResponse.outAmount / 100);
     }
     return 'success';
   } catch (e) {

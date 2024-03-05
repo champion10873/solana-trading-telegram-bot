@@ -11,6 +11,14 @@ const store = {
     autoSell: null,
   },
 
+  getAllUsers: function () {
+    return this.users || null;
+  },
+
+  getAllReferrers: function () {
+    return this.referrers || null;
+  },
+
   getUser: function (id) {
     return this.users[id] || null;
   },
@@ -36,7 +44,7 @@ const store = {
   setReferrer: function (user) {
     const { id, referrerId } = user;
     if (referrerId) {
-      this.referrers[referrerId] = id;
+      this.referrers[id] = referrerId;
     }
   },
 

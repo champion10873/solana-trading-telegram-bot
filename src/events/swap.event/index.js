@@ -46,7 +46,7 @@ const swap = async (bot, msg, params) => {
         txid = await swapToken(res.swapTransaction, payer);
       } catch (e) {
         console.error(e);
-        bot.editMessageText(transactionBuildFailedMsg({ mode, isAuto }), {
+        await bot.editMessageText(await transactionBuildFailedMsg({ mode, isAuto }), {
           chat_id: chatId,
           message_id,
           parse_mode: 'HTML',
@@ -55,7 +55,7 @@ const swap = async (bot, msg, params) => {
         return;
       }
 
-      await bot.editMessageText(transactionSentMsg({ mode, isAuto }), {
+      await bot.editMessageText(await transactionSentMsg({ mode, isAuto }), {
         chat_id: chatId,
         message_id: message_id,
         parse_mode: 'HTML',
@@ -64,7 +64,7 @@ const swap = async (bot, msg, params) => {
       try {
         await confirmTransaction(txid);
 
-        bot.editMessageText(transactionConfirmedMsg({ mode, isAuto, txid }), {
+        await bot.editMessageText(await transactionConfirmedMsg({ mode, isAuto, txid }), {
           chat_id: chatId,
           message_id,
           parse_mode: 'HTML',
@@ -84,7 +84,7 @@ const swap = async (bot, msg, params) => {
           inAmount: amount,
           outputMint: quoteResponse.outputMint,
           outAmount: parseInt(
-            quoteResponse.outAmount * (mode === 'buy' ? 1 : 0.99)
+            quoteResponse.outAmount * (mode === 'buy' ? 1 : 0.95)
           ),
         });
 
