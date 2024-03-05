@@ -84,7 +84,7 @@ const swap = async (bot, msg, params) => {
           inAmount: amount,
           outputMint: quoteResponse.outputMint,
           outAmount: parseInt(
-            quoteResponse.outAmount * (mode === 'buy' ? 1 : 0.95)
+            quoteResponse.outAmount * (mode === 'buy' ? 1 : 0.99)
           ),
         });
 
