@@ -9,7 +9,7 @@ const referralsMsg = ({ code, referrals, income }) => `
   👥 Referrals: <b>${referrals}</b>
   💰 Lifetime SOL earned: <b>${income / LAMPORTS_PER_SOL} SOL</b>
 
-  <i>🔥 Rewards are updated at real time and rewards are automatically deposited to your Tonk Sniper balance.
+  <i>🔥 Rewards are updated in real-time, you receive them automatically with every new trade in your friend network.
 
   Refer your friends and earn <b>30</b>% of their fees!</i>
 `;
