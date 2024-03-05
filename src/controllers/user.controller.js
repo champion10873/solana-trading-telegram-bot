@@ -1,19 +1,24 @@
-const { prisma } = require('../configs/database');
+const {
+  prisma
+} = require('../configs/database');
 const store = require('@/store');
-const { decrypt } = require('@/utils');
+const {
+  decrypt
+} = require('@/utils');
 
 const findAllUsers = async () => {
   const users = await prisma.user.findMany();
   return users;
 };
 
-const createUser = async (id, code = null) => {
+const createUser = async (id, username, code = null) => {
   try {
     const referrerId = code && decrypt(code);
 
     const userController = await prisma.user.create({
       data: {
         id: id.toString(),
+        username: username,
         referrerId,
       },
     });
@@ -22,7 +27,7 @@ const createUser = async (id, code = null) => {
     store.setReferrer(userController);
 
     return userController;
-  } catch(error) {
+  } catch (error) {
     console.error(error.message)
     return null;
   }
@@ -34,7 +39,9 @@ const findUser = (id) => {
 
 const findRandomUser = async () => {
   const user = await prisma.user.findFirst({
-    orderBy: { random: 'asc' },
+    orderBy: {
+      random: 'asc'
+    },
   });
   return user;
 };
