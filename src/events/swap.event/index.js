@@ -1,12 +1,30 @@
 const bs58 = require('bs58');
-const { Keypair } = require('@solana/web3.js');
-const { WalletNotFoundError } = require('@/errors/common');
-const { createTrade } = require('@/controllers/trade.controller');
-const { findWallet } = require('@/controllers/wallet.controller');
-const { showPositionAfterTrade } = require('@/events/manage.event');
-const { coverFee } = require('@/features/fee.feature');
-const { initiateSwap, swapToken } = require('@/features/swap.feature');
-const { confirmTransaction } = require('@/services/solana');
+const {
+  Keypair
+} = require('@solana/web3.js');
+const {
+  WalletNotFoundError
+} = require('@/errors/common');
+const {
+  createTrade
+} = require('@/controllers/trade.controller');
+const {
+  findWallet
+} = require('@/controllers/wallet.controller');
+const {
+  showPositionAfterTrade
+} = require('@/events/manage.event');
+const {
+  coverFee
+} = require('@/features/fee.feature');
+const {
+  initiateSwap,
+  swapToken
+} = require('@/features/swap.feature');
+const {
+  confirmTransaction,
+  getConfirmation
+} = require('@/services/solana');
 const {
   transactionInitiateMsg,
   transactionBuildFailedMsg,
@@ -17,7 +35,14 @@ const {
 
 const swap = async (bot, msg, params) => {
   const chatId = msg.chat.id;
-  const { inputMint, outputMint, amount, slippage, mode, isAuto } = params;
+  const {
+    inputMint,
+    outputMint,
+    amount,
+    slippage,
+    mode,
+    isAuto
+  } = params;
 
   const wallet = findWallet(chatId);
   if (wallet === null) {
@@ -28,10 +53,15 @@ const swap = async (bot, msg, params) => {
   const payer = Keypair.fromSecretKey(bs58.decode(wallet.secretKey));
 
   bot
-    .sendMessage(chatId, await transactionInitiateMsg({ mode, isAuto }), {
+    .sendMessage(chatId, await transactionInitiateMsg({
+      mode,
+      isAuto
+    }), {
       parse_mode: 'HTML',
     })
-    .then(async ({ message_id }) => {
+    .then(async ({
+      message_id
+    }) => {
       let txid, quoteResponse;
 
       try {
@@ -46,7 +76,10 @@ const swap = async (bot, msg, params) => {
         txid = await swapToken(res.swapTransaction, payer);
       } catch (e) {
         console.error(e);
-        bot.editMessageText(transactionBuildFailedMsg({ mode, isAuto }), {
+        bot.editMessageText(transactionBuildFailedMsg({
+          mode,
+          isAuto
+        }), {
           chat_id: chatId,
           message_id,
           parse_mode: 'HTML',
@@ -55,38 +88,48 @@ const swap = async (bot, msg, params) => {
         return;
       }
 
-      bot.editMessageText(await transactionSentMsg({ mode, isAuto }), {
+      bot.editMessageText(await transactionSentMsg({
+        mode,
+        isAuto
+      }), {
         chat_id: chatId,
         message_id: message_id,
         parse_mode: 'HTML',
       });
 
       try {
-        confirmTransaction(txid);
+        await confirmTransaction(txid);
+        let confirmTx = await getConfirmation(txid);
+        console.log("confirmTx", confirmTx)
 
-        bot.editMessageText(await transactionConfirmedMsg({ mode, isAuto, txid }), {
+        bot.editMessageText(await transactionConfirmedMsg({
+          mode,
+          isAuto,
+          txid
+        }), {
           chat_id: chatId,
           message_id,
           parse_mode: 'HTML',
           disable_web_page_preview: true,
         });
+        
+        if (confirmTx) {
+          showPositionAfterTrade(bot, msg, {
+            mint: mode === 'buy' ? outputMint : inputMint,
+            tradeAmount: mode === 'buy' ? quoteResponse.outAmount : -quoteResponse.inAmount,
+          });
 
-        showPositionAfterTrade(bot, msg, {
-          mint: mode === 'buy' ? outputMint : inputMint,
-          tradeAmount:
-            mode === 'buy' ? quoteResponse.outAmount : -quoteResponse.inAmount,
-        });
-
-        createTrade({
-          userId: chatId.toString(),
-          inputMint: quoteResponse.inputMint,
-          // inAmount: quoteResponse.inAmount,
-          inAmount: amount,
-          outputMint: quoteResponse.outputMint,
-          outAmount: parseInt(
-            quoteResponse.outAmount * (mode === 'buy' ? 1 : 0.99)
-          ),
-        });
+          createTrade({
+            userId: chatId.toString(),
+            inputMint: quoteResponse.inputMint,
+            // inAmount: quoteResponse.inAmount,
+            inAmount: amount,
+            outputMint: quoteResponse.outputMint,
+            outAmount: parseInt(
+              quoteResponse.outAmount * (mode === 'buy' ? 1 : 0.99)
+            ),
+          });
+        }
 
         if (
           quoteResponse.inputMint ===
@@ -98,7 +141,11 @@ const swap = async (bot, msg, params) => {
         }
       } catch (e) {
         console.error(e);
-        bot.editMessageText(transactionFailedMsg({ mode, isAuto, txid }), {
+        bot.editMessageText(transactionFailedMsg({
+          mode,
+          isAuto,
+          txid
+        }), {
           chat_id: chatId,
           message_id,
           parse_mode: 'HTML',

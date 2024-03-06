@@ -39,6 +39,7 @@ const transferLamports = async (fromSeckey, toPubkey, lamports) => {
 
     transaction.sign([payer]);
     const txid = await connection.sendTransaction(transaction);
+    //const txid = await connection.signAndSendTransaction(transaction);
 
     return txid;
   } catch (error) {

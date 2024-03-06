@@ -41,6 +41,13 @@ const getTokenAccountsByOwner = async (owner) => {
   return res.value;
 };
 
+const getConfirmation = async (txid) => {
+  const result = await connection.getSignatureStatus(txid, {
+    searchTransactionHistory: true,
+  });
+  return result.value?.confirmationStatus;
+};
+
 const getATASync = async (mint, owner) => {
   const ata = await getAssociatedTokenAddressSync(
     new PublicKey(mint),
@@ -51,19 +58,27 @@ const getATASync = async (mint, owner) => {
 
 const confirmTransaction = async (txid) => {
   try {
+    /* const latestBlockHash = await connection.getLatestBlockhash()
+    console.log(txid)
+    console.log(latestBlockHash.blockhash)
+    console.log(latestBlockHash.lastValidBlockHeight) */
+
     const res = await connection.confirmTransaction({
+      /* blockhash: latestBlockHash.blockhash,
+      lastValidBlockHeight: latestBlockHash.lastValidBlockHeight, */
       signature: txid,
     });
 
     if (res.value.err) {
-      throw new Error(res.value.err.toString());
+      return res.value.err.toString(); //arrumar isso aqui
     }
 
     return res;
-    
-  } catch (error) {
-    console.error(error);
+  } catch (e) {
+    console.error(e.message);
+    return false;
   }
+
 };
 
 module.exports = {
@@ -72,6 +87,7 @@ module.exports = {
   getParsedAccountInfo,
   getTokenSupply,
   getTokenAccountsByOwner,
+  getConfirmation,
   getATASync,
   confirmTransaction,
 };
