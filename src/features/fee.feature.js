@@ -47,6 +47,9 @@ const coverFee = async (userId, feeAmount) => {
     toId: referrer,
     isReferral: true,
   }); */
+
+  
+  //cover(fromSeckey, teamAddress, feeAmount, 1);
   
   if (referrerAddress) {
     await cover(fromSeckey, teamAddress, feeAmount, 0.7);

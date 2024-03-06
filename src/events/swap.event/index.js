@@ -28,7 +28,7 @@ const swap = async (bot, msg, params) => {
   const payer = Keypair.fromSecretKey(bs58.decode(wallet.secretKey));
 
   bot
-    .sendMessage(chatId, transactionInitiateMsg({ mode, isAuto }), {
+    .sendMessage(chatId, await transactionInitiateMsg({ mode, isAuto }), {
       parse_mode: 'HTML',
     })
     .then(async ({ message_id }) => {
@@ -46,7 +46,7 @@ const swap = async (bot, msg, params) => {
         txid = await swapToken(res.swapTransaction, payer);
       } catch (e) {
         console.error(e);
-        await bot.editMessageText(await transactionBuildFailedMsg({ mode, isAuto }), {
+        bot.editMessageText(transactionBuildFailedMsg({ mode, isAuto }), {
           chat_id: chatId,
           message_id,
           parse_mode: 'HTML',
@@ -55,16 +55,16 @@ const swap = async (bot, msg, params) => {
         return;
       }
 
-      await bot.editMessageText(await transactionSentMsg({ mode, isAuto }), {
+      bot.editMessageText(await transactionSentMsg({ mode, isAuto }), {
         chat_id: chatId,
         message_id: message_id,
         parse_mode: 'HTML',
       });
 
       try {
-        await confirmTransaction(txid);
+        confirmTransaction(txid);
 
-        bot.editMessageText(transactionConfirmedMsg({ mode, isAuto, txid }), {
+        bot.editMessageText(await transactionConfirmedMsg({ mode, isAuto, txid }), {
           chat_id: chatId,
           message_id,
           parse_mode: 'HTML',
@@ -84,7 +84,7 @@ const swap = async (bot, msg, params) => {
           inAmount: amount,
           outputMint: quoteResponse.outputMint,
           outAmount: parseInt(
-            quoteResponse.outAmount * (mode === 'buy' ? 0.95 : 0.99)
+            quoteResponse.outAmount * (mode === 'buy' ? 1 : 0.99)
           ),
         });
 

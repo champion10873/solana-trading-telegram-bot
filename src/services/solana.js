@@ -1,10 +1,16 @@
 const bs58 = require('bs58');
-const { Wallet } = require('@coral-xyz/anchor');
+const {
+  Wallet
+} = require('@coral-xyz/anchor');
 const {
   TOKEN_PROGRAM_ID,
   getAssociatedTokenAddressSync,
 } = require('@solana/spl-token');
-const { Keypair, LAMPORTS_PER_SOL, PublicKey } = require('@solana/web3.js');
+const {
+  Keypair,
+  LAMPORTS_PER_SOL,
+  PublicKey
+} = require('@solana/web3.js');
 const connection = require('@/configs/connection');
 
 const getWallet = (secretKey) => {
@@ -44,11 +50,20 @@ const getATASync = async (mint, owner) => {
 };
 
 const confirmTransaction = async (txid) => {
-  const res = await connection.confirmTransaction(txid);
-  if (res.value.err) {
-    throw new Error(res.value.err.toString());
+  try {
+    const res = await connection.confirmTransaction({
+      signature: txid,
+    });
+
+    if (res.value.err) {
+      throw new Error(res.value.err.toString());
+    }
+
+    return res;
+    
+  } catch (error) {
+    console.error(error);
   }
-  return res;
 };
 
 module.exports = {
