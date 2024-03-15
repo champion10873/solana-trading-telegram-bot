@@ -34,6 +34,7 @@ const {
 } = require('./messages');
 
 const swap = async (bot, msg, params) => {
+  console.log('swap params => ', params);
   const chatId = msg.chat.id;
   const {
     inputMint,
@@ -73,6 +74,7 @@ const swap = async (bot, msg, params) => {
           payer,
         });
         quoteResponse = res.quoteResponse;
+        console.log("quoteResponse: ", quoteResponse);
         txid = await swapToken(res.swapTransaction, payer);
       } catch (e) {
         console.error(e);
@@ -90,15 +92,19 @@ const swap = async (bot, msg, params) => {
 
       bot.editMessageText(await transactionSentMsg({
         mode,
-        isAuto
+        isAuto,
+        txid
       }), {
         chat_id: chatId,
         message_id: message_id,
         parse_mode: 'HTML',
+        disable_web_page_preview: true,
       });
+      console.log("txid: ", txid)
 
       try {
-        await confirmTransaction(txid);
+        let confirmData = await confirmTransaction(txid);
+        console.log("confirmData: ", confirmData);
         let confirmTx = await getConfirmation(txid);
         console.log("confirmTx", confirmTx)
 
