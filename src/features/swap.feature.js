@@ -13,7 +13,7 @@ const executeTransaction = async (transaction) => {
   const rawTransaction = await transaction.serialize();
   const txid = await connection.sendRawTransaction(rawTransaction, {
     skipPreflight: true,
-    maxRetries: 2,
+    maxRetries: 5,
   });
 
   return txid;
