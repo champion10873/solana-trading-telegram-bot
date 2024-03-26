@@ -9,7 +9,10 @@ const transactionInitiateMsg = (mode) => `
 const transactionBuildFailedMsg = () => `
   ⛔ Building transaction failed, please try again.
 `;
-
+const transactionSentMsgauto = (txid) => `
+🤖 Autobuy Transaction triggered. 
+  https://solscan.io/tx/${txid}
+`;
 const transactionSentMsg = (txid) => `
   ➡ Transaction sent. Waiting for confirmation...
   https://solscan.io/tx/${txid}
@@ -50,7 +53,8 @@ module.exports = {
 
   transactionSentMsg: ({ mode, isAuto, txid }) =>
     trim(wrapAutoBuy(transactionSentMsg(txid), mode, isAuto)),
-
+  transactionSentMsgauto: ({ mode, isAuto, txid }) =>
+    trim(wrapAutoBuy(transactionSentMsgauto(txid), mode, isAuto)),
   transactionConfirmedMsg: ({ mode, isAuto, txid }) =>
     trim(wrapAutoBuy(transactionConfirmedMsg(txid), mode, isAuto)),
 

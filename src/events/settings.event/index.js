@@ -259,7 +259,7 @@ const addStrategy = async (bot, msg) => {
           return;
         }
 
-        await createStrategy({ userId: chatId, percent, amount });
+        await createStrategy({ userId: chatId.toString(), percent, amount });
         const settings = await findSettings(chatId);
 
         bot.editMessageText(settingsMsg(settings), {
@@ -301,7 +301,20 @@ const editStrategy = async (bot, msg, params) => {
     .then(({ message_id }) => {
       bot.onReplyToMessage(chatId, message_id, async (reply) => {
         const value = parseFloat(reply.text);
-
+        if (reply.text=="del"){
+          await updateStrategy(parseInt(id),  reply.text );
+          const settings = await findSettings(chatId);
+        bot.sendMessage(chatId,"strategy deleted ❌🛒")
+        bot.editMessageText(settingsMsg(settings), {
+          chat_id: chatId,
+          message_id: msg.message_id,
+          parse_mode: 'HTML',
+          reply_markup: {
+            inline_keyboard: settingsKeyboard(settings),
+          },
+        });
+          return;
+        }
         switch (name) {
           case 'percent':
           case 'amount':
@@ -309,15 +322,16 @@ const editStrategy = async (bot, msg, params) => {
               bot.sendMessage(chatId, numberLimitMsg());
               return;
             }
-            if (isNaN(value)) {
+            if (isNaN(value) ) {
+              
               bot.sendMessage(chatId, invalidNumberMsg());
               return;
             }
         }
-
-        await updateStrategy(id, { [name]: value });
+        console.log(value)
+        await updateStrategy(parseInt(id), { [name]: value });
         const settings = await findSettings(chatId);
-
+        console.log("hi")
         bot.editMessageText(settingsMsg(settings), {
           chat_id: chatId,
           message_id: msg.message_id,

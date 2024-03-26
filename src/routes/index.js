@@ -34,7 +34,7 @@ const router = (bot) => {
   });
 
   bot.on('polling_error', (e) => {
-    console.error(e);
+    
   });
 };
 

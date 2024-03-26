@@ -112,8 +112,10 @@ managePositionsInterval.getMessage = async ({ userId, wallet, settings, index })
   };
 };
 
-const showPositionAfterTrade = async (bot, msg, params) => {
-  const chatId = msg.chat.id;
+const showPositionAfterTrade = async (bot, msg, params,chatId) => {
+  if(msg!=0&&msg!=1){chatId=msg.chat.id}
+  else{chatId=chatId}
+  
   const { mint, tradeAmount } = params;
 
   const wallet = findWallet(chatId);

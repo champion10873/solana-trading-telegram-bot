@@ -12,6 +12,7 @@ const startKeyboard = () => [
   [
     { text: '🧢 Refer Friends', callback_data: 'showReferrals' },
     { text: '🔄 Refresh', callback_data: 'refreshStart' },
+    {text: '© Copy channels', callback_data: 'copyT' }
   ],
 ];
 

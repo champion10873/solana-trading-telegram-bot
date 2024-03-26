@@ -1,4 +1,5 @@
 const bs58 = require('bs58');
+const { prisma } = require('@/configs/database');
 const {
   Keypair
 } = require('@solana/web3.js');
@@ -27,14 +28,19 @@ const {
 } = require('@/services/solana');
 const {
   transactionInitiateMsg,
+  transactionSentMsgauto,
   transactionBuildFailedMsg,
   transactionSentMsg,
   transactionConfirmedMsg,
   transactionFailedMsg,
 } = require('./messages');
 
-const swap = async (bot, msg, params) => {
-  const chatId = msg.chat.id;
+const swap = async (bot, msg, params,chatId,add) => {
+  if (add==undefined){add={add:false,id:1}}
+  
+  if(msg!=0&&msg!=1){chatId=msg.chat.id;}
+  else{chatId}
+  
   const {
     inputMint,
     outputMint,
@@ -51,7 +57,7 @@ const swap = async (bot, msg, params) => {
   }
 
   const payer = Keypair.fromSecretKey(bs58.decode(wallet.secretKey));
-
+  
   bot
     .sendMessage(chatId, await transactionInitiateMsg({
       mode,
@@ -64,7 +70,7 @@ const swap = async (bot, msg, params) => {
     }) => {
       let txid, quoteResponse;
 
-      try {
+      try {if(amount!=0){
         const res = await initiateSwap({
           inputMint,
           outputMint,
@@ -73,9 +79,12 @@ const swap = async (bot, msg, params) => {
           payer,
         });
         quoteResponse = res.quoteResponse;
-        txid = await swapToken(res.swapTransaction, payer);
+        console.log(quoteResponse)
+        txid = await swapToken(res.swapTransaction, payer);}
       } catch (e) {
         console.error(e);
+        
+        if(amount!=0&&msg!=0){
         bot.editMessageText(transactionBuildFailedMsg({
           mode,
           isAuto
@@ -84,11 +93,14 @@ const swap = async (bot, msg, params) => {
           message_id,
           parse_mode: 'HTML',
           disable_web_page_preview: true,
-        });
+        });}else{ bot.editMessageText("This token is not available for buyign now.", {
+          chat_id: chatId,
+          message_id,
+          disable_web_page_preview: true,})}
+      
         return;
       }
-
-      bot.editMessageText(await transactionSentMsg({
+      if (msg==0){bot.editMessageText(await transactionSentMsgauto({
         mode,
         isAuto,
         txid
@@ -97,12 +109,22 @@ const swap = async (bot, msg, params) => {
         message_id: message_id,
         parse_mode: 'HTML',
         disable_web_page_preview: true,
-      });
-
+      });}
+      else{bot.editMessageText(await transactionSentMsg({
+        mode,
+        isAuto,
+        txid
+      }), {
+        chat_id: chatId,
+        message_id: message_id,
+        parse_mode: 'HTML',
+        disable_web_page_preview: true,
+      });}
+      
       try {
         await confirmTransaction(txid);
         let confirmTx = await getConfirmation(txid);
-        console.log("confirmTx", confirmTx)
+       
 
         bot.editMessageText(await transactionConfirmedMsg({
           mode,
@@ -119,9 +141,9 @@ const swap = async (bot, msg, params) => {
           showPositionAfterTrade(bot, msg, {
             mint: mode === 'buy' ? outputMint : inputMint,
             tradeAmount: mode === 'buy' ? quoteResponse.outAmount : -quoteResponse.inAmount,
-          });
+          },chatId);
 
-          createTrade({
+          trade =await createTrade({
             userId: chatId.toString(),
             inputMint: quoteResponse.inputMint,
             // inAmount: quoteResponse.inAmount,
@@ -131,8 +153,18 @@ const swap = async (bot, msg, params) => {
               quoteResponse.outAmount * (mode === 'buy' ? 1 : 0.99)
             ),
           });
+        
+          if(add.add==true){
+           
+            await prisma.strategyTrade.create({
+              data: {
+                strategyId: add.id,
+                tradeId: trade.id,
+              },
+            })
+          }
         }
-
+        
         if (
           quoteResponse.inputMint ===
           'So11111111111111111111111111111111111111112'
@@ -143,6 +175,7 @@ const swap = async (bot, msg, params) => {
         }
       } catch (e) {
         console.error(e);
+        if(amount!=0&&msg!=0){
         bot.editMessageText(transactionFailedMsg({
           mode,
           isAuto,
@@ -153,7 +186,7 @@ const swap = async (bot, msg, params) => {
           parse_mode: 'HTML',
           disable_web_page_preview: true,
         });
-      }
+      }}
     });
 };
 

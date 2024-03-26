@@ -9,7 +9,7 @@ const sellRouter = (bot) => {
         sellX(bot, query.message, { ata: data[1] });
         break;
       case 'sellPercent':
-        sellPercent(bot, query.message, {
+        sellPercent(bot, query.message.chat.id, {
           ata: data[1],
           percent: parseFloat(data[2]),
         });

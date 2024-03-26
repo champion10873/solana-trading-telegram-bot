@@ -25,19 +25,23 @@ model Income {
 }
 
 model User {
-    id         String  @id
-    referrerId String?
-    username   String?
+    id         String    @id
+    referrerId String?   // This assumes referrerId is a nullable string
+    username   String?   // This assumes username is a nullable string
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
 
-    //referrer   User?    @relation("Referrer", fields: [referrerId], references: [id])
-    Strategy  Strategy[]
-    Trade     Trade[]
-    CopyTrade CopyTrade[]
+    // If you want to establish a self-referencing relationship (a user refers another user)
+    referrer   User?     @relation("Referrer", fields: [referrerId], references: [id])
+    referrals  User[]    @relation("Referrer")
 
-    @@map("users")
+    Strategy   Strategy[]
+    Trade      Trade[]
+    CopyTrade  CopyTrade[]
+    UserChannel UserChannel[]
+
+    @@map("users") // Maps this model to the 'users' table in your database
 }
 
 model Wallet {
@@ -75,33 +79,42 @@ model Settings {
 }
 
 model Strategy {
-    id      Int    @id @default(autoincrement())
-    userId  String
-    percent Int
-    amount  Int
+  id        Int      @id @default(autoincrement())
+  userId    String
+  percent   Float
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  user   User    @relation(fields: [userId], references: [id])
+  trades Trade[] // Removed references argument
 
-    user User @relation(fields: [userId], references: [id])
+  @@map("strategies")
 
-    @@map("strategies")
 }
 
 model Trade {
-    id         Int    @id @default(autoincrement())
-    userId     String
-    inputMint  String
-    inAmount   Float
-    outputMint String
-    outAmount  Float
+  id         Int      @id @default(autoincrement())
+  userId     String
+  inputMint  String
+  inAmount   Float
+  outputMint String
+  outAmount  Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  user       User       @relation(fields: [userId], references: [id])
+  strategies Strategy[] // Removed references argument
 
-    user User @relation(fields: [userId], references: [id])
+  @@map("trades")
+}
 
-    @@map("trades")
+model StrategyTrade {
+  strategyId Int @map("strategy_id")
+  tradeId    Int @map("trade_id")
+
+  @@id([strategyId, tradeId])
+  @@map("strategy_trade")
 }
 
 model CopyTrade {
@@ -116,4 +129,22 @@ model CopyTrade {
     user User @relation(fields: [userId], references: [id])
 
     @@map("copy_trade")
+}
+model channels {
+  id         Int      @id @default(autoincrement())
+  name       String
+  codename   String
+  
+  UserChannel UserChannel[]
+}
+
+// Define the `UserChannel` model for the many-to-many relationship
+model UserChannel {
+  user      User     @relation(fields: [user_id], references: [id])
+  user_id    String      // Foreign key reference to `User`
+  channel   channels  @relation(fields: [channel_id], references: [id])
+  channel_id Int         // Foreign key reference to `Channel`
+  amount    Decimal?     // Optional Decimal field for amount, make it non-optional by removing '?'
+  @@id([user_id, channel_id])
+  @@map("user_channel")
 }

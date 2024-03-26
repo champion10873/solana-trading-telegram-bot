@@ -57,7 +57,7 @@ const getQuote = async ({ inputMint, outputMint, amount }) => {
     // Modify the slippageBps value here
     data.slippageBps = 5000; // For example, set it to a different value
   
-    console.log(data);
+    
     return data;
   });
 };
@@ -78,7 +78,7 @@ const getSwapTransaction = async ({ quoteResponse, payer }) => {
     .then((res) => res.json())
     .then((data) => {
       // Edit the prioritizationFeeLamports property here
-      data.prioritizationFeeLamports = 200000; // Replace 12345 with your desired value
+      data.prioritizationFeeLamports = 20000; // Replace 12345 with your desired value
       console.log(data)
       return data;
     });

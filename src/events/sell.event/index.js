@@ -23,13 +23,14 @@ const sellX = async (bot, msg, params) => {
           bot.sendMessage(chatId, invalidAmountMsg());
           return;
         }
-        sellPercent(bot, msg, { ata, percent });
+        sellPercent(bot, msg.chat.id, { ata, percent });
       });
     });
 };
 
-const sellPercent = async (bot, msg, params) => {
-  const chatId = msg.chat.id;
+const sellPercent = async (bot, msg, params,add) => {
+  const chatId = msg;
+
   const { ata, percent, tokenInfo, isAuto } = params;
 
   const settings = await findSettings(chatId);
@@ -39,26 +40,26 @@ const sellPercent = async (bot, msg, params) => {
   }
 
   if (isAuto) {
-    swap(bot, msg, {
+    swap(bot, 1, {
       inputMint: tokenInfo.mint,
       outputMint: 'So11111111111111111111111111111111111111112',
       amount: parseInt((parseInt(tokenInfo.balance * (10 ** tokenInfo.decimals)) * percent) / 100),
       slippage: settings.autoSellSlippage,
       mode: 'sell',
       isAuto,
-    });
+    },msg,add);
   } else {
     const connection = new web3.Connection('https://api.mainnet-beta.solana.com', 'confirmed');
     const accountPublicKey = new web3.PublicKey(ata);
     const account = await getAccount(connection, accountPublicKey)
 
-    swap(bot, msg, {
+    swap(bot, 1, {
       inputMint: account.mint.toBase58(),
       outputMint: 'So11111111111111111111111111111111111111112',
       amount: parseInt((parseInt(account.amount) * percent) / 100),
       slippage: settings.sellSlippage,
       mode: 'sell',
-    });
+    },msg);
   }
 };
 

@@ -3,9 +3,10 @@ const connection = require('@/configs/connection');
 const { createCopyTrade } = require('@/controllers/copy.controller');
 const { findSettings } = require('@/controllers/settings.controller');
 const { findStrategy } = require('@/controllers/strategy.controller');
-const { getTradesData } = require('@/controllers/trade.controller');
+const { getTradesData,getTradesDataauto } = require('@/controllers/trade.controller');
 const { findUser } = require('@/controllers/user.controller');
 const { findWallet } = require('@/controllers/wallet.controller');
+const { prisma } = require('@/configs/database');
 const {
   SettingsNotFoundError,
   WalletNotFoundError,
@@ -36,14 +37,22 @@ const TimeInterval = 30 * 1000;
 
 const buyToken = (bot, msg) => {
   const chatId = msg.chat.id;
-
+  console.log("lol")
   bot.sendMessage(chatId, buyTokenMsg(), {
     parse_mode: 'HTML',
-    reply_markup: {
-      inline_keyboard: buyTokenKeyboard(),
+    reply_markup: {force_reply: true,
+        
     },
-  });
-};
+}).then(sentMessage => {
+    // Listen for the reply to the specific message
+    bot.onReplyToMessage(chatId,sentMessage.message_id, async (reply) => {
+        if (reply.text) {
+            if (!reply.text.startsWith('/')) {
+                processToken(bot, reply);
+            }
+        }
+    });
+});}
 
 const processToken = async (bot, msg) => {
   const chatId = msg.chat.id;
@@ -105,9 +114,8 @@ const autoBuyToken = async (bot, msg, params) => {
   });
 };
 
-const autoSellToken = async (bot, msg) => {
-  const chatId = msg.chat.id;
-
+const autoSellToken = async (bot, chatId) => {
+  
   if (findUser(chatId) === null) {
     console.log('New User');
     return;
@@ -118,7 +126,8 @@ const autoSellToken = async (bot, msg) => {
     console.error(SettingsNotFoundError);
     return;
   }
-  if (!settings.autoSell) {
+  
+  if (!settings.autoSell || settings.autoSell == 0) {
     return;
   }
 
@@ -131,7 +140,7 @@ const autoSellToken = async (bot, msg) => {
   const tokens = await getTokenAccountsByOwner(wallet.publicKey);
 
   if (tokens.length === 0) {
-    console.log('Empty Token')
+    
     return;
   }
 
@@ -145,35 +154,58 @@ const autoSellToken = async (bot, msg) => {
     }
 
     const { mint, decimals, priceNative } = token;
-    const { initial, baseAmount, quoteAmount } = await getTradesData(
-      chatId,
-      mint
-    );
+    const { initials, baseAmounts, quoteAmounts } = await getTradesData(chatId, mint);
 
-    const profitSol =
-      (quoteAmount / 10 ** decimals) * priceNative -
-      baseAmount / LAMPORTS_PER_SOL;
-    const profitPercent = (profitSol * 100.0) / (initial / LAMPORTS_PER_SOL);
-
+    const profitSols = (quoteAmounts / 10 ** decimals) * priceNative - baseAmounts / LAMPORTS_PER_SOL;
+    let profitPercents = (profitSols * 100.0) / (initials / LAMPORTS_PER_SOL);
+    console.log(`profits : ${profitPercents}%`)
     const strategies = await findStrategy(chatId);
+    
     for (const strategy of strategies) {
+      let { initial, baseAmount, quoteAmount, tradesss } = await getTradesDataauto(chatId, mint, strategy.id);
+  
+      const profitSol = (quoteAmount / 10 ** decimals) * priceNative - baseAmount / LAMPORTS_PER_SOL;
+      const profitPercent = (profitSol * 100.0) / (initial / LAMPORTS_PER_SOL);
+      
       if (profitPercent > 0 && strategy.percent > 0 && profitPercent >= strategy.percent) {
-        sellPercent(bot, msg, {
-          tokenInfo: token,
-          percent: strategy.amount,
-          isAuto: true,
+        for (const trade of tradesss) {
+          await prisma.strategyTrade.create({
+            data: {
+              strategyId: strategy.id,
+              tradeId: trade.id,
+            },
+          });
+        }
+        await new Promise((resolve, reject) => {
+          sellPercent(bot, chatId, {
+            tokenInfo: token,
+            percent: strategy.amount,
+            isAuto: true,
+          }, { add: true, id:strategy.id}).then(() => resolve()).catch((error) => reject(error));
         });
+        
       }
       if (profitPercent < 0 && strategy.percent < 0 && profitPercent <= strategy.percent) {
-        sellPercent(bot, msg, {
-          tokenInfo: token,
-          percent: strategy.amount,
-          isAuto: true,
+        for (const trade of tradesss) {
+          await prisma.strategyTrade.create({
+            data: {
+              strategyId: strategy.id,
+              tradeId: trade.id,
+            },
+          });
+        }
+        await new Promise((resolve, reject) => {
+          sellPercent(bot, chatId, {
+            tokenInfo: token,
+            percent: strategy.amount,
+            isAuto: true,
+          }, { add: true, addresses: tradesss,id:strategy.id }).then(() => resolve()).catch((error) => reject(error));
         });
       }
     }
   });
 };
+
 
 const showToken = async (bot, msg, params) => {
   await showTokenInterval(bot, msg, params);
@@ -261,6 +293,7 @@ showTokenInterval.getMessage = async ({ walletAddress, mintAddress, settings }) 
 
   try {
     const pair = await getPair(mintAddress);
+    
     priceUsd = parseFloat(pair.priceUsd);
     priceChange = pair.priceChange;
     liquidity = pair.liquidity.usd / 2;
