@@ -274,7 +274,7 @@ showTokenInterval.getMessage = async ({ walletAddress, mintAddress, settings }) 
   try {
     metadata = await getTokenMetadata(mintAddress);
   } catch (e) {
-    console.error(e);
+    
     return {
       message: tokenNotFoundMsg(mintAddress),
       keyboard: [],

@@ -1,6 +1,8 @@
 const { isChannel } = require('./verifier');
 
-async function channelKeyboard(userId, channels) {
+async function channelKeyboard(userId, 
+    channels) 
+    {
     const promises = channels.map(async (ch) => {
         const channelExists = await isChannel(userId, ch.id);
        
@@ -24,4 +26,12 @@ async function channelKeyboard(userId, channels) {
     return rows;
 }
 
-module.exports = { channelKeyboard };
+
+
+const trackkeyboard= (chid,
+    codename,
+    chname)=>
+    {
+    return[[{text: `📍 track `,callback_data: `track ${chid} ${codename} ${chname}`},{text: `🛒 autobuy `,callback_data: `autobuy ${chid}`}]]
+}
+module.exports = { channelKeyboard ,trackkeyboard};

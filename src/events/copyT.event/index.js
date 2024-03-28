@@ -1,11 +1,16 @@
-const{channelKeyboard}= require('./keyboard');
+const{channelKeyboard,trackkeyboard}= require('./keyboard');
 const { prisma } = require('@/configs/database');
+const {channelmessage,selectionMessage}=require('./message');
 const { isChannel } = require('./verifier');
+
+
+
+
 const showChannel= async(bot,chatId) =>{
   const channels = await prisma.channels.findMany();
   console.log(channels)
-    message=`Select call channels you'd like to subscribe to! 🔔`
-    bot.sendMessage(chatId, message, {
+    
+    bot.sendMessage(chatId, selectionMessage, {
         
         reply_markup: {
           inline_keyboard: await channelKeyboard(chatId,channels),
@@ -27,21 +32,12 @@ const showsh=async(bot,chatId,chid,codename,chname)=>{
   }catch(e){
     console.error(e)
   }
-  message=`
-  ${await isChannel(chatId.toString(),parseInt(chid))} tracking
-  username: @${codename}
-  name: __${chname}__
- 
-  📌 Auto Buy:
+  verif=await isChannel(chatId.toString(),parseInt(chid))
 
-  Amount: ${amount}
+  message= channelmessage(verif,codename,chname,amount)
+  console.log(message)
+  keyboard=trackkeyboard(chid,codename,chname);
 
-
-
-
-  ℹ️ Please Enable autosell in you wallet and setup your selling strategy.
-  ℹ️ Channel slippage settings will use your wallet settings.`
-  keyboard=[[{text: `📍 track `,callback_data: `track ${chid} ${codename} ${chname}`},{text: `🛒 autobuy `,callback_data: `autobuy ${chid}`}]]
   bot.sendMessage(chatId, message, {
 
         

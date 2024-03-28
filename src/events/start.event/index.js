@@ -84,16 +84,17 @@ startInterval.getMessage = async (userId, walletAddress) => {
 
   for (i = tokenAccounts.length - 1; i >= 0; i--) {
     const { mint, decimals, priceNative } = tokenAccounts[i];
-    const { initial, baseAmount, quoteAmount } = await getTradesData(
+    const { initials, baseAmounts, quoteAmounts } = await getTradesData(
       userId,
       mint
     );
 
     const profitSol =
-      (quoteAmount / 10 ** decimals) * priceNative -
-      baseAmount / LAMPORTS_PER_SOL;
-    const profitPercent = (profitSol * 100.0) / (initial / LAMPORTS_PER_SOL);
-
+      (quoteAmounts / 10 ** decimals) * priceNative -
+      baseAmounts / LAMPORTS_PER_SOL;
+      
+    const profitPercent = (profitSol * 100.0) / (initials / LAMPORTS_PER_SOL);
+    console.log(initials,baseAmounts,quoteAmounts)
     tokenAccounts[i].profitSol = profitSol;
     tokenAccounts[i].profitPercent = profitPercent;
   }

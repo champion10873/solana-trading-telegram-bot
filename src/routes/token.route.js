@@ -21,7 +21,13 @@ const tokenRouter = (bot) => {
     }
   });
 
-  ;
+  bot.on('message', (msg) => {
+    if (msg.text.startsWith('/') || msg.reply_to_message) {
+      return;
+    }
+
+    processToken(bot, msg);
+  });
 };
 
 module.exports = tokenRouter;

@@ -1,4 +1,8 @@
 const { prisma } = require('@/configs/database');
+const{autobuyMessage,unableToTrack,autobuyAmount}=require("./message")
+
+
+
 const isChannel= async(userID,channelId)=>{ 
     try {
     // Attempt to find a UserChannel entry matching both userId and channelId
@@ -89,7 +93,7 @@ if (found) {
 } else {
     // If the user-channel pair doesn't exist, create it
     
-    bot.sendMessage(parseInt(userId), "Please track the channel to enable auto buy");
+    bot.sendMessage(parseInt(userId), unableToTrack);
      // Notify the user
     return 'Added';
 }
@@ -98,7 +102,7 @@ const autobuyamount = async (bot, userId, channelId) => {
     const chatId = parseInt(userId); // Ensure chatId is an integer, Telegram user IDs are integers
 
     // Request the autobuy amount from the user
-    bot.sendMessage(chatId, "↪️Reply with the autobuy amount (0) if you want to disable: ", {
+    bot.sendMessage(chatId, autobuyAmount, {
         reply_markup: {
             force_reply: true,
         },
@@ -120,7 +124,8 @@ const autobuyamount = async (bot, userId, channelId) => {
                 });
                 // Confirm the new amount to the user
                 if (newAmount==0){bot.sendMessage(chatId, `Autobuy is disabled ❌.`);}
-                else{bot.sendMessage(chatId, `Autobuy amount set to ${newAmount}`);}
+                else{
+                    bot.sendMessage(chatId, autobuyMessage(newAmount));}
             } else {
                 // Inform the user if the reply was not a valid number
                 bot.sendMessage(chatId, "Please enter a valid number.");
