@@ -1,3 +1,5 @@
 node_modules
 prisma/migrations
 .env
+package-lock.json
+yarn.lock
