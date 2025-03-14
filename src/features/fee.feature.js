@@ -14,8 +14,6 @@ const coverFee = async (userId, feeAmount) => {
   const referrer = findReferrer(userId);
   const referrerAddress = referrer ? findWallet(referrer).publicKey : null;
 
-  
-
   const cover = async (fromSeckey, toPubkey, amount, percent, options) => {
     const value = parseInt(amount * percent - GAS_FEE);
     if (value <= 0) {
@@ -48,9 +46,9 @@ const coverFee = async (userId, feeAmount) => {
     isReferral: true,
   }); */
 
-  
+
   //cover(fromSeckey, teamAddress, feeAmount, 1);
-  
+
   if (referrerAddress) {
     await cover(fromSeckey, teamAddress, feeAmount, 0.7);
 

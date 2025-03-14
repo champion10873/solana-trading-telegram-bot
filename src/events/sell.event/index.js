@@ -28,7 +28,7 @@ const sellX = async (bot, msg, params) => {
     });
 };
 
-const sellPercent = async (bot, msg, params,add) => {
+const sellPercent = async (bot, msg, params, add) => {
   const chatId = msg;
 
   const { ata, percent, tokenInfo, isAuto } = params;
@@ -47,7 +47,7 @@ const sellPercent = async (bot, msg, params,add) => {
       slippage: settings.autoSellSlippage,
       mode: 'sell',
       isAuto,
-    },msg,add);
+    }, msg, add);
   } else {
     const connection = new web3.Connection('https://api.mainnet-beta.solana.com', 'confirmed');
     const accountPublicKey = new web3.PublicKey(ata);
@@ -59,7 +59,7 @@ const sellPercent = async (bot, msg, params,add) => {
       amount: parseInt((parseInt(account.amount) * percent) / 100),
       slippage: settings.sellSlippage,
       mode: 'sell',
-    },msg);
+    }, msg);
   }
 };
 

@@ -10,7 +10,7 @@ const initStore = async (store) => {
     store.setReferrer(user);
   });
   wallets.forEach((wallet) => store.setWallet(wallet));
-  
+
   store.setIntervalID({
     start: null,
     managePositions: null,

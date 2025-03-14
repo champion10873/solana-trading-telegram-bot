@@ -24,7 +24,7 @@ const createWallet = async (id) => {
     store.setWallet(wallet);
 
     return wallet;
-  } catch(error) {
+  } catch (error) {
     console.error(error.message)
     return null;
   }

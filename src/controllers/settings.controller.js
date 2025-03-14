@@ -19,7 +19,7 @@ const createSettings = async (id) => {
         id: id.toString(),
       },
     });
-  } catch(error) {
+  } catch (error) {
     console.error(error.message)
     return null;
   }

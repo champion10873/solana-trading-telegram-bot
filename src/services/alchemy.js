@@ -23,10 +23,7 @@ const getTokenAccountsByOwner = async (ownerAddress) => {
     }),
   };
 
-  /* return fetch(url, options)
-    .then((res) => res.json())
-    .then((res) => res.result.value); */
-    return fetch(url, options)
+  return fetch(url, options)
     .then((res) => res.json())
     .then((res) => {
       if (res.result && res.result.value) {

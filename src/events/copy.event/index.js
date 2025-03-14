@@ -37,7 +37,7 @@ const parseTransaction = async (bot, msg, { copyWalletAddress }) => {
   const preTokenBalances = meta.preTokenBalances;
   if (postTokenBalances.length === 0 || preTokenBalances.length === 0)
     return;
-  
+
 
   let inputMint, outputMint, slippage, amount, mode;
   const isAuto = true;
@@ -46,21 +46,21 @@ const parseTransaction = async (bot, msg, { copyWalletAddress }) => {
   console.log("targetTokneBalances => ", targetTokenBalances)
   if (targetTokenBalances.length <= 0)
     return
-  
+
   const postAmount = targetTokenBalances[0].uiTokenAmount.uiAmount;
   const preAmount = preTokenBalances.filter(one => one.accountIndex === targetTokenBalances[0].accountIndex)[0].uiTokenAmount.uiAmount;
-  
+
   const pair = await getPair(targetTokenBalances[0].mint);
   priceSol = parseFloat(pair.priceNative);
-  amount=(postAmount-preAmount)*priceSol* Math.pow(10, 9)
-  
+  amount = (postAmount - preAmount) * priceSol * Math.pow(10, 9)
+
   if (postAmount === preAmount) {
     return
   } else if (postAmount > preAmount) {
     inputMint = 'So11111111111111111111111111111111111111112';
     outputMint = targetTokenBalances[0].mint;
     slippage = settings.autoBuySlippage;
-    amount = parseInt(amount* 0.99);
+    amount = parseInt(amount * 0.99);
     mode = 'buy';
   } else {
     inputMint = targetTokenBalances[0].mint;

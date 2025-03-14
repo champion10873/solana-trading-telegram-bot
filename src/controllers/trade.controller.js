@@ -3,24 +3,24 @@ async function processTrades(trades, strategyId, mintAddress) {
   let initial = 0;
   let baseAmount = 0;
   let quoteAmount = 0;
-  let tradesss=[]
+  let tradesss = []
   try {
     for (const trade of trades) {
-      
+
       const linked = await prisma.strategyTrade.findFirst({
         where: {
           strategyId: strategyId,
           tradeId: trade.id,
         },
       });
-      
+
       if (trade.inputMint === 'So11111111111111111111111111111111111111112' && !linked) {
-        
+
         initial += trade.inAmount;
         baseAmount += trade.inAmount;
         quoteAmount += trade.outAmount;
         tradesss.push(trade)
-        
+
       }
 
       if (trade.inputMint === mintAddress && !linked) {
@@ -29,11 +29,11 @@ async function processTrades(trades, strategyId, mintAddress) {
         baseAmount -= trade.outAmount;
         tradesss.push(trade)
 
-        
+
       }
     }
-    
-    return { initial, baseAmount, quoteAmount ,tradesss};
+
+    return { initial, baseAmount, quoteAmount, tradesss };
   } catch (error) {
     console.error("Error processing trades:", error);
     return null;
@@ -48,7 +48,7 @@ const createTrade = async (params) => {
 };
 
 const getTradesData = async (userId, mintAddress) => {
-  
+
   const trades = await prisma.trade.findMany({
     where: {
       userId: userId.toString(),
@@ -61,7 +61,7 @@ const getTradesData = async (userId, mintAddress) => {
       inputMint: true,
       inAmount: true,
       outAmount: true,
-      id:true
+      id: true
     },
   });
   console.log()
@@ -69,25 +69,25 @@ const getTradesData = async (userId, mintAddress) => {
   let baseAmount = 0;
   let quoteAmount = 0;
   let initial = 0;
-  
+
   trades.forEach((trade) => {
     if (trade.inputMint === 'So11111111111111111111111111111111111111112') {
       initial += trade.inAmount;
       baseAmount += trade.inAmount;
       quoteAmount += trade.outAmount;
-      
+
     }
     if (trade.inputMint === mintAddress) {
       initial -= trade.outAmount;
       quoteAmount -= trade.inAmount;
       baseAmount -= trade.outAmount;
-      
+
     }
   });
-  
-  return { initials:initial, baseAmounts:baseAmount, quoteAmounts:quoteAmount};
+
+  return { initials: initial, baseAmounts: baseAmount, quoteAmounts: quoteAmount };
 };
-const getTradesDataauto = async (userId, mintAddress,id) => {
+const getTradesDataauto = async (userId, mintAddress, id) => {
   const trades = await prisma.trade.findMany({
     where: {
       userId: userId.toString(),
@@ -100,14 +100,14 @@ const getTradesDataauto = async (userId, mintAddress,id) => {
       inputMint: true,
       inAmount: true,
       outAmount: true,
-      id:true
+      id: true
     },
   });
 
- lol= await processTrades(trades, id, mintAddress)
- return lol
-  
- 
+  lol = await processTrades(trades, id, mintAddress)
+  return lol
+
+
 };
 
 

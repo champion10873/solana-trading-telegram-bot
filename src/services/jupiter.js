@@ -49,15 +49,14 @@ const getQuote = async ({ inputMint, outputMint, amount }) => {
 
   return fetch(url).then(async (res) => {
     const data = await res.json();
-  
+
     if (data.error) {
       throw new Error(data.error);
     }
-  
+
     // Modify the slippageBps value here
     data.slippageBps = 5000; // For example, set it to a different value
-  
-    
+
     return data;
   });
 };

@@ -19,7 +19,7 @@ console.log('Bot is now listening to messages in the channel...');
 
 // Handle errors
 bot.on('polling_error', (error) => {
-    
+
 });
 bot.setMyCommands(commands);
 bot.setMyDescription({ description: description() });

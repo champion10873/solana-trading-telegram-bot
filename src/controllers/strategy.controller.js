@@ -9,7 +9,7 @@ const findStrategy = async (id) => {
       id: true,
       percent: true,
       amount: true,
-      
+
     },
   });
   return strategies;
@@ -32,11 +32,11 @@ const deleteStrategy = async (id, percent, amount) => {
 
 const createStrategy = async (params) => {
   try {
-    
+
     await prisma.strategy.create({
       data: params,
     });
-  } catch(e) {
+  } catch (e) {
     console.error(e)
     return null;
   }
@@ -44,11 +44,11 @@ const createStrategy = async (params) => {
 
 
 const updateStrategy = async (id, params) => {
- 
-  
-    // Delete dependent records first
-    
-  if (params=="del" ){
+
+
+  // Delete dependent records first
+
+  if (params == "del") {
     await prisma.StrategyTrade.deleteMany({
       where: {
         strategyId: id,
@@ -58,7 +58,7 @@ const updateStrategy = async (id, params) => {
       where: {
         id: id,
       },
-      
+
     });
     const strategies = await findStrategy(id);
     return strategies;

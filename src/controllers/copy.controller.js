@@ -26,7 +26,7 @@ const createCopyTrade = async (params) => {
           })
       })
     }
-    
+
     await prisma.copyTrade.create({
       data: params
     });

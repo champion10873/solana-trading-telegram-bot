@@ -48,7 +48,7 @@ const showWallet = async (bot, msg, params) => {
           inline_keyboard: keyboard,
         },
       })
-      .catch(() => {});
+      .catch(() => { });
   }
 };
 

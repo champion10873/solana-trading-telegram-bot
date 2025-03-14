@@ -27,7 +27,7 @@ const executeTransaction = async (transaction) => {
     commitment: 'confirmed', // Adjust as needed
     preflightCommitment: 'processed',
   };
-  const txid = await connection.sendRawTransaction( rawTransaction, options);
+  const txid = await connection.sendRawTransaction(rawTransaction, options);
 
   return txid;
 };
@@ -66,5 +66,5 @@ const swapToken = async (swapTransaction, payer) => {
 module.exports = {
   initiateSwap,
   swapToken,
-  
+
 };

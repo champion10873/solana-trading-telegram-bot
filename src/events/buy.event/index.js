@@ -10,7 +10,7 @@ const { getBalance } = require('@/services/solana');
 const { replyAmountMsg, invalidAmountMsg } = require('./messages');
 
 const buyX = async (bot, msg, params) => {
-  const chatId = msg.chat.id; 
+  const chatId = msg.chat.id;
   const { mintAddress } = params;
 
   const wallet = findWallet(chatId);
@@ -42,10 +42,10 @@ const buyX = async (bot, msg, params) => {
     });
 };
 
-const buyAmount = async (bot, msg, params,chatId) => {
+const buyAmount = async (bot, msg, params, chatId) => {
   console.log(msg)
-  if(msg!=0){const chatId = msg.chat.id;}
-  chatId=parseInt(chatId)
+  if (msg != 0) { const chatId = msg.chat.id; }
+  chatId = parseInt(chatId)
   console.log(chatId)
   const { mintAddress, amount, isAuto } = params;
   console.log(amount)
@@ -54,15 +54,16 @@ const buyAmount = async (bot, msg, params,chatId) => {
     console.error(SettingsNotFoundError);
     return;
   }
-  if (msg==0){
-  swap(bot, 0, {
-    inputMint: 'So11111111111111111111111111111111111111112',
-    outputMint: mintAddress,
-    amount: amount * LAMPORTS_PER_SOL,
-    slippage: isAuto ? settings.autoBuySlippage : settings.buySlippage,
-    mode: 'buy',
-    isAuto,
-  },chatId);}
+  if (msg == 0) {
+    swap(bot, 0, {
+      inputMint: 'So11111111111111111111111111111111111111112',
+      outputMint: mintAddress,
+      amount: amount * LAMPORTS_PER_SOL,
+      slippage: isAuto ? settings.autoBuySlippage : settings.buySlippage,
+      mode: 'buy',
+      isAuto,
+    }, chatId);
+  }
   else
     swap(bot, msg, {
       inputMint: 'So11111111111111111111111111111111111111112',
@@ -71,7 +72,8 @@ const buyAmount = async (bot, msg, params,chatId) => {
       slippage: isAuto ? settings.autoBuySlippage : settings.buySlippage,
       mode: 'buy',
       isAuto,
-    });};
+    });
+};
 
 
 module.exports = {

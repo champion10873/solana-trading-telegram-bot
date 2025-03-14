@@ -35,12 +35,12 @@ const {
   transactionFailedMsg,
 } = require('./messages');
 
-const swap = async (bot, msg, params,chatId,add) => {
-  if (add==undefined){add={add:false,id:1}}
-  
-  if(msg!=0&&msg!=1){chatId=msg.chat.id;}
-  else{chatId}
-  
+const swap = async (bot, msg, params, chatId, add) => {
+  if (add == undefined) { add = { add: false, id: 1 } }
+
+  if (msg != 0 && msg != 1) { chatId = msg.chat.id; }
+  else { chatId }
+
   const {
     inputMint,
     outputMint,
@@ -57,7 +57,7 @@ const swap = async (bot, msg, params,chatId,add) => {
   }
 
   const payer = Keypair.fromSecretKey(bs58.decode(wallet.secretKey));
-  
+
   bot
     .sendMessage(chatId, await transactionInitiateMsg({
       mode,
@@ -70,61 +70,71 @@ const swap = async (bot, msg, params,chatId,add) => {
     }) => {
       let txid, quoteResponse;
 
-      try {if(amount!=0){
-        const res = await initiateSwap({
-          inputMint,
-          outputMint,
-          amount: mode === 'buy' ? parseInt(amount * 0.99) : parseInt(amount),
-          slippageBps: slippage,
-          payer,
-        });
-        quoteResponse = res.quoteResponse;
-        console.log(quoteResponse)
-        txid = await swapToken(res.swapTransaction, payer);}
+      try {
+        if (amount != 0) {
+          const res = await initiateSwap({
+            inputMint,
+            outputMint,
+            amount: mode === 'buy' ? parseInt(amount * 0.99) : parseInt(amount),
+            slippageBps: slippage,
+            payer,
+          });
+          quoteResponse = res.quoteResponse;
+          console.log(quoteResponse)
+          txid = await swapToken(res.swapTransaction, payer);
+        }
       } catch (e) {
         console.error(e);
-        
-        if(amount!=0&&msg!=0){
-        bot.editMessageText(transactionBuildFailedMsg({
-          mode,
-          isAuto
-        }), {
-          chat_id: chatId,
-          message_id,
-          parse_mode: 'HTML',
-          disable_web_page_preview: true,
-        });}else{ bot.editMessageText("This token is not available for buyign now.", {
-          chat_id: chatId,
-          message_id,
-          disable_web_page_preview: true,})}
-      
+
+        if (amount != 0 && msg != 0) {
+          bot.editMessageText(transactionBuildFailedMsg({
+            mode,
+            isAuto
+          }), {
+            chat_id: chatId,
+            message_id,
+            parse_mode: 'HTML',
+            disable_web_page_preview: true,
+          });
+        } else {
+          bot.editMessageText("This token is not available for buyign now.", {
+            chat_id: chatId,
+            message_id,
+            disable_web_page_preview: true,
+          })
+        }
+
         return;
       }
-      if (msg==0){bot.editMessageText(await transactionSentMsgauto({
-        mode,
-        isAuto,
-        txid
-      }), {
-        chat_id: chatId,
-        message_id: message_id,
-        parse_mode: 'HTML',
-        disable_web_page_preview: true,
-      });}
-      else{bot.editMessageText(await transactionSentMsg({
-        mode,
-        isAuto,
-        txid
-      }), {
-        chat_id: chatId,
-        message_id: message_id,
-        parse_mode: 'HTML',
-        disable_web_page_preview: true,
-      });}
-      
+      if (msg == 0) {
+        bot.editMessageText(await transactionSentMsgauto({
+          mode,
+          isAuto,
+          txid
+        }), {
+          chat_id: chatId,
+          message_id: message_id,
+          parse_mode: 'HTML',
+          disable_web_page_preview: true,
+        });
+      }
+      else {
+        bot.editMessageText(await transactionSentMsg({
+          mode,
+          isAuto,
+          txid
+        }), {
+          chat_id: chatId,
+          message_id: message_id,
+          parse_mode: 'HTML',
+          disable_web_page_preview: true,
+        });
+      }
+
       try {
         await confirmTransaction(txid);
         let confirmTx = await getConfirmation(txid);
-       
+
 
         bot.editMessageText(await transactionConfirmedMsg({
           mode,
@@ -136,14 +146,14 @@ const swap = async (bot, msg, params,chatId,add) => {
           parse_mode: 'HTML',
           disable_web_page_preview: true,
         });
-        
+
         if (confirmTx) {
           showPositionAfterTrade(bot, msg, {
             mint: mode === 'buy' ? outputMint : inputMint,
             tradeAmount: mode === 'buy' ? quoteResponse.outAmount : -quoteResponse.inAmount,
-          },chatId);
+          }, chatId);
 
-          trade =await createTrade({
+          trade = await createTrade({
             userId: chatId.toString(),
             inputMint: quoteResponse.inputMint,
             // inAmount: quoteResponse.inAmount,
@@ -153,9 +163,9 @@ const swap = async (bot, msg, params,chatId,add) => {
               quoteResponse.outAmount * (mode === 'buy' ? 1 : 0.99)
             ),
           });
-        
-          if(add.add==true){
-           
+
+          if (add.add == true) {
+
             await prisma.strategyTrade.create({
               data: {
                 strategyId: add.id,
@@ -164,7 +174,7 @@ const swap = async (bot, msg, params,chatId,add) => {
             })
           }
         }
-        
+
         if (
           quoteResponse.inputMint ===
           'So11111111111111111111111111111111111111112'
@@ -175,18 +185,19 @@ const swap = async (bot, msg, params,chatId,add) => {
         }
       } catch (e) {
         console.error(e);
-        if(amount!=0&&msg!=0){
-        bot.editMessageText(transactionFailedMsg({
-          mode,
-          isAuto,
-          txid
-        }), {
-          chat_id: chatId,
-          message_id,
-          parse_mode: 'HTML',
-          disable_web_page_preview: true,
-        });
-      }}
+        if (amount != 0 && msg != 0) {
+          bot.editMessageText(transactionFailedMsg({
+            mode,
+            isAuto,
+            txid
+          }), {
+            chat_id: chatId,
+            message_id,
+            parse_mode: 'HTML',
+            disable_web_page_preview: true,
+          });
+        }
+      }
     });
 };
 

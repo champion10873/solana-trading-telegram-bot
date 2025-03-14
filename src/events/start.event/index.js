@@ -17,7 +17,7 @@ const start = async (bot, msg, params) => {
   await startInterval(bot, msg, params);
   await autoSellToken(bot, msg.chat.id);
 
- 
+
 };
 
 const startInterval = async (bot, msg, params) => {
@@ -92,9 +92,9 @@ startInterval.getMessage = async (userId, walletAddress) => {
     const profitSol =
       (quoteAmounts / 10 ** decimals) * priceNative -
       baseAmounts / LAMPORTS_PER_SOL;
-      
+
     const profitPercent = (profitSol * 100.0) / (initials / LAMPORTS_PER_SOL);
-    console.log(initials,baseAmounts,quoteAmounts)
+    console.log(initials, baseAmounts, quoteAmounts)
     tokenAccounts[i].profitSol = profitSol;
     tokenAccounts[i].profitPercent = profitPercent;
   }

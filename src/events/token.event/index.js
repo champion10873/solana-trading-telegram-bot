@@ -3,7 +3,7 @@ const connection = require('@/configs/connection');
 const { createCopyTrade } = require('@/controllers/copy.controller');
 const { findSettings } = require('@/controllers/settings.controller');
 const { findStrategy } = require('@/controllers/strategy.controller');
-const { getTradesData,getTradesDataauto } = require('@/controllers/trade.controller');
+const { getTradesData, getTradesDataauto } = require('@/controllers/trade.controller');
 const { findUser } = require('@/controllers/user.controller');
 const { findWallet } = require('@/controllers/wallet.controller');
 const { prisma } = require('@/configs/database');
@@ -40,19 +40,21 @@ const buyToken = (bot, msg) => {
   console.log("lol")
   bot.sendMessage(chatId, buyTokenMsg(), {
     parse_mode: 'HTML',
-    reply_markup: {force_reply: true,
-        
+    reply_markup: {
+      force_reply: true,
+
     },
-}).then(sentMessage => {
+  }).then(sentMessage => {
     // Listen for the reply to the specific message
-    bot.onReplyToMessage(chatId,sentMessage.message_id, async (reply) => {
-        if (reply.text) {
-            if (!reply.text.startsWith('/')) {
-                processToken(bot, reply);
-            }
+    bot.onReplyToMessage(chatId, sentMessage.message_id, async (reply) => {
+      if (reply.text) {
+        if (!reply.text.startsWith('/')) {
+          processToken(bot, reply);
         }
+      }
     });
-});}
+  });
+}
 
 const processToken = async (bot, msg) => {
   const chatId = msg.chat.id;
@@ -115,7 +117,7 @@ const autoBuyToken = async (bot, msg, params) => {
 };
 
 const autoSellToken = async (bot, chatId) => {
-  
+
   if (findUser(chatId) === null) {
     console.log('New User');
     return;
@@ -126,7 +128,7 @@ const autoSellToken = async (bot, chatId) => {
     console.error(SettingsNotFoundError);
     return;
   }
-  
+
   if (!settings.autoSell || settings.autoSell == 0) {
     return;
   }
@@ -140,7 +142,7 @@ const autoSellToken = async (bot, chatId) => {
   const tokens = await getTokenAccountsByOwner(wallet.publicKey);
 
   if (tokens.length === 0) {
-    
+
     return;
   }
 
@@ -160,13 +162,13 @@ const autoSellToken = async (bot, chatId) => {
     let profitPercents = (profitSols * 100.0) / (initials / LAMPORTS_PER_SOL);
     console.log(`profits : ${profitPercents}%`)
     const strategies = await findStrategy(chatId);
-    
+
     for (const strategy of strategies) {
       let { initial, baseAmount, quoteAmount, tradesss } = await getTradesDataauto(chatId, mint, strategy.id);
-  
+
       const profitSol = (quoteAmount / 10 ** decimals) * priceNative - baseAmount / LAMPORTS_PER_SOL;
       const profitPercent = (profitSol * 100.0) / (initial / LAMPORTS_PER_SOL);
-      
+
       if (profitPercent > 0 && strategy.percent > 0 && profitPercent >= strategy.percent) {
         for (const trade of tradesss) {
           await prisma.strategyTrade.create({
@@ -181,9 +183,9 @@ const autoSellToken = async (bot, chatId) => {
             tokenInfo: token,
             percent: strategy.amount,
             isAuto: true,
-          }, { add: true, id:strategy.id}).then(() => resolve()).catch((error) => reject(error));
+          }, { add: true, id: strategy.id }).then(() => resolve()).catch((error) => reject(error));
         });
-        
+
       }
       if (profitPercent < 0 && strategy.percent < 0 && profitPercent <= strategy.percent) {
         for (const trade of tradesss) {
@@ -199,7 +201,7 @@ const autoSellToken = async (bot, chatId) => {
             tokenInfo: token,
             percent: strategy.amount,
             isAuto: true,
-          }, { add: true, addresses: tradesss,id:strategy.id }).then(() => resolve()).catch((error) => reject(error));
+          }, { add: true, addresses: tradesss, id: strategy.id }).then(() => resolve()).catch((error) => reject(error));
         });
       }
     }
@@ -274,7 +276,7 @@ showTokenInterval.getMessage = async ({ walletAddress, mintAddress, settings }) 
   try {
     metadata = await getTokenMetadata(mintAddress);
   } catch (e) {
-    
+
     return {
       message: tokenNotFoundMsg(mintAddress),
       keyboard: [],
@@ -293,7 +295,7 @@ showTokenInterval.getMessage = async ({ walletAddress, mintAddress, settings }) 
 
   try {
     const pair = await getPair(mintAddress);
-    
+
     priceUsd = parseFloat(pair.priceUsd);
     priceChange = pair.priceChange;
     liquidity = pair.liquidity.usd / 2;
