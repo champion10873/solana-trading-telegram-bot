@@ -7,7 +7,6 @@ const { WalletNotFoundError } = require('@/errors/common');
 const { autoSellToken } = require('@/events/token.event');
 const { getTokenAccountsByOwner } = require('@/features/token.feature');
 const { getBalance } = require('@/services/solana');
-const { clearAllInterval, getIntervalID, setIntervalID } = require('@/store');
 const { welcomeMsg, positionsMsg } = require('./messages');
 const { startKeyboard } = require('./keyboards');
 
@@ -16,8 +15,6 @@ const TimeInterval = 30 * 1000;
 const start = async (bot, msg, params) => {
   await startInterval(bot, msg, params);
   await autoSellToken(bot, msg.chat.id);
-
-
 };
 
 const startInterval = async (bot, msg, params) => {

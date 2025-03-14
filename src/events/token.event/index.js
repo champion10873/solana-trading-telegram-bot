@@ -18,7 +18,6 @@ const { getPair } = require('@/services/dexscreener');
 const { getBalance } = require('@/services/solana');
 const { getTokenMetadata } = require('@/services/metaplex');
 const { getTokenAccountsByOwner } = require('@/features/token.feature');
-const { clearAllInterval, setIntervalID } = require('@/store');
 const {
   buyTokenMsg,
   tokenMsg,
@@ -31,18 +30,16 @@ const {
   copyTradeMsg,
   tokenSniperSettingMsg,
 } = require('./messages');
-const { buyTokenKeyboard, tokenKeyboard } = require('./keyboards');
+const { tokenKeyboard } = require('./keyboards');
 
 const TimeInterval = 30 * 1000;
 
 const buyToken = (bot, msg) => {
   const chatId = msg.chat.id;
-  console.log("lol")
   bot.sendMessage(chatId, buyTokenMsg(), {
     parse_mode: 'HTML',
     reply_markup: {
       force_reply: true,
-
     },
   }).then(sentMessage => {
     // Listen for the reply to the specific message
