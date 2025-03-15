@@ -42,13 +42,9 @@ const buyX = async (bot, msg, params) => {
     });
 };
 
-const buyAmount = async (bot, msg, params, chatId) => {
-  console.log(msg)
-  if (msg != 0) { const chatId = msg.chat.id; }
-  chatId = parseInt(chatId)
-  console.log(chatId)
+const buyAmount = async (bot, msg, params) => {
+  const chatId = msg.chat.id;
   const { mintAddress, amount, isAuto } = params;
-  console.log(amount)
   const settings = await findSettings(chatId);
   if (settings === null) {
     console.error(SettingsNotFoundError);

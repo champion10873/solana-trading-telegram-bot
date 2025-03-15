@@ -32,7 +32,7 @@ const executeTransaction = async (transaction) => {
   return txid;
 };
 
-const initiateSwap = async ({ inputMint, outputMint, amount, payer }) => {
+const initiateSwap = async ({ inputMint, outputMint, amount, slippageBps, payer }) => {
   // Specify the desired slippage tolerance (e.g., 1%)
   const slippage = 5000; // Adjust this value based on your requirements
 
@@ -40,7 +40,7 @@ const initiateSwap = async ({ inputMint, outputMint, amount, payer }) => {
     inputMint,
     outputMint,
     amount,
-    slippage,
+    slippage: slippageBps,
   });
 
   if (quoteResponse.error) {
@@ -66,5 +66,4 @@ const swapToken = async (swapTransaction, payer) => {
 module.exports = {
   initiateSwap,
   swapToken,
-
 };

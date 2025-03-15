@@ -80,7 +80,6 @@ const swap = async (bot, msg, params, chatId, add) => {
             payer,
           });
           quoteResponse = res.quoteResponse;
-          console.log(quoteResponse)
           txid = await swapToken(res.swapTransaction, payer);
         }
       } catch (e) {
