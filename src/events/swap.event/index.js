@@ -75,8 +75,8 @@ const swap = async (bot, msg, params, chatId, add) => {
           const res = await initiateSwap({
             inputMint,
             outputMint,
-            amount: mode === 'buy' ? parseInt(amount * 0.99) : parseInt(amount),
-            slippageBps: slippage,
+            amount: parseInt(amount),
+            slippage,
             payer,
           });
           quoteResponse = res.quoteResponse;

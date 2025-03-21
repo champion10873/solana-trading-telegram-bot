@@ -44,7 +44,7 @@ const getPrice = async (mintAddress) => {
     });
 };
 
-const getQuote = async ({ inputMint, outputMint, amount }) => {
+const getQuote = async ({ inputMint, outputMint, amount, slippage }) => {
   const url = `https://quote-api.jup.ag/v6/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amount}`;
 
   return fetch(url).then(async (res) => {
@@ -55,7 +55,7 @@ const getQuote = async ({ inputMint, outputMint, amount }) => {
     }
 
     // Modify the slippageBps value here
-    data.slippageBps = 5000; // For example, set it to a different value
+    data.slippage = slippage; // For example, set it to a different value
 
     return data;
   });
@@ -78,10 +78,10 @@ const getSwapTransaction = async ({ quoteResponse, payer }) => {
     .then((data) => {
       // Edit the prioritizationFeeLamports property here
       data.prioritizationFeeLamports = 20000; // Replace 12345 with your desired value
-      console.log(data)
       return data;
     });
 };
+
 module.exports = {
   getPrice,
   getQuote,

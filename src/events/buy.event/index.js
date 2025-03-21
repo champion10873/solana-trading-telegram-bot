@@ -60,7 +60,7 @@ const buyAmount = async (bot, msg, params) => {
       isAuto,
     }, chatId);
   }
-  else
+  else {
     swap(bot, msg, {
       inputMint: 'So11111111111111111111111111111111111111112',
       outputMint: mintAddress,
@@ -69,8 +69,8 @@ const buyAmount = async (bot, msg, params) => {
       mode: 'buy',
       isAuto,
     });
+  }
 };
-
 
 module.exports = {
   buyX,
